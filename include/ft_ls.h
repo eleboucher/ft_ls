@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/12 17:17:34 by elebouch          #+#    #+#             */
-/*   Updated: 2018/01/15 16:15:19 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/01/17 13:50:50 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ typedef struct		s_file
 #endif
 	char			*path;
 	struct stat		*stat;
-	struct s_file	**inside;
+	struct s_file	*inside;
 	struct s_file	*next;
 }					t_file;
 
