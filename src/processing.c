@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/13 15:02:51 by elebouch          #+#    #+#             */
-/*   Updated: 2018/01/23 15:25:03 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/01/23 23:48:05 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ t_file 	*get_info(char *dir, char *d_name)
 		return (0);
 	ft_strcpy(file->file_name, d_name);
 	file->path = joindir(dir, d_name);
-	lstat(file->path, file->stat);
+	stat(dir, &file->stat);
 	file->isdir = 0;
 	file->next = NULL;
 	return (file);
@@ -43,9 +43,7 @@ t_file *ft_getls(char *dir)
 
 	cpy = NULL;
 	if (!(rep = opendir(dir)) && errno == ENOTDIR)
-	{
 		return (NULL);
-	}
 	if (!rep)
 		return (NULL);
 	printf("PATH ------> %s\n", dir);
