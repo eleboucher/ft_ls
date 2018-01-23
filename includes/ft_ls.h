@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/12 17:17:34 by elebouch          #+#    #+#             */
-/*   Updated: 2018/01/17 13:50:50 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/01/23 15:02:02 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,9 @@
 
 #include <stdlib.h>
 #include <dirent.h>
+#include <sys/stat.h>
+#include <stdio.h>
+#include <errno.h>
 #include "libft.h"
 
 typedef struct		s_file 
@@ -25,6 +28,7 @@ typedef struct		s_file
 	char			file_name[256];
 #endif
 	char			*path;
+	int				isdir;
 	struct stat		*stat;
 	struct s_file	*inside;
 	struct s_file	*next;
@@ -41,6 +45,9 @@ typedef struct		s_ls
 	char			**dir;
 	t_file			**files;
 }					t_ls;
-
-
+void	display(t_ls *data);
+int		process(t_ls *data);
+t_file 	*get_info(char *dir, char *d_name);
+char *joindir(char *dir,char *newdir);
+t_file *ft_getls(char *dir);
 #endif

@@ -6,74 +6,63 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/13 15:02:51 by elebouch          #+#    #+#             */
-/*   Updated: 2018/01/17 15:02:44 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/01/23 15:25:03 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-t_file 	*get_info(char *dir, struct dirent *readfile)
+t_file 	*get_info(char *dir, char *d_name)
 {
 	t_file *file;
 
 	if (!(file = malloc(sizeof(t_file))))
 		return (0);
-	ft_strcpy(file->file_name, readfile->d_name);
-	file->path = ft_strdup(dir);
+	ft_strcpy(file->file_name, d_name);
+	file->path = joindir(dir, d_name);
 	lstat(file->path, file->stat);
+	file->isdir = 0;
 	file->next = NULL;
 	return (file);
 }
 
-void	ft_getls(char *dir, t_file **file)
+char *joindir(char *dir,char *newdir)
 {
-	DIR* rep;
-	struct dirent *readfile;
-	t_file	*cpy;
-
-	if (!(rep = opendir(dir)))
-			return ;
-	cpy = NULL;
-	while ((readfile = readdir(rep)))
-	{
-		if (cpy)
-		{
-			cpy->next = get_info(dir, readfile);
-			cpy = cpy->next;
-		}
-		else
-		{
-			cpy = get_info(dir, readfile);
-			*file = cpy;
-		}
-	}
+	dir = ft_strjoin(dir, "/");
+	dir = ft_strjoin(dir, newdir);
+	return (dir);
 }
 
-t_file	*ft_getrecurls(char *dir)
+t_file *ft_getls(char *dir)
 {
 	DIR* rep;
 	struct dirent *readfile;
-	t_file	*file;
+	t_file *file;
 	t_file	*cpy;
 
-	if (!(rep = opendir(dir)))
-			return (NULL);
+
 	cpy = NULL;
+	if (!(rep = opendir(dir)) && errno == ENOTDIR)
+	{
+		return (NULL);
+	}
+	if (!rep)
+		return (NULL);
+	printf("PATH ------> %s\n", dir);
 	while ((readfile = readdir(rep)))
 	{
 		if (cpy)
 		{
-			cpy->next = get_info(dir, readfile);
+			cpy->next = get_info(dir, readfile->d_name);
 			cpy = cpy->next;
 		}
 		else
 		{
-			cpy = get_info(dir, readfile);
+			cpy = get_info(dir, readfile->d_name);
 			file = cpy;
 		}
-		if (readfile->d_type == 4 && readfile->d_name[0] != '.')
-			cpy->inside = ft_getrecurls(ft_strjoin(dir, readfile->d_name));
 	}
+	closedir(rep);
 	return (file);
 }
 
@@ -86,10 +75,7 @@ int	process(t_ls *data)
 		return (0);
 	while (++i < data->nb_dir)
 	{
-		if (!data->fg_br)
-			ft_getls(data->dir[i], &(data->files[i]));
-		else
-			data->files[i] = ft_getrecurls(data->dir[i]);
+		data->files[i] = ft_getls(data->dir[i]);
 	}
 	return(1);
 }
