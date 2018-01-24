@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/13 15:02:51 by elebouch          #+#    #+#             */
-/*   Updated: 2018/01/24 11:39:44 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/01/24 21:29:17 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ t_file *ft_getls(char *dir)
 	t_file *file;
 	t_file	*cpy;
 
-
 	cpy = NULL;
 	if (!(rep = opendir(dir)) && errno == ENOTDIR)
 		return (NULL);
@@ -61,6 +60,7 @@ t_file *ft_getls(char *dir)
 		}
 	}
 	closedir(rep);
+	ft_mergesort(&file);
 	return (file);
 }
 
