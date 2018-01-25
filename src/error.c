@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/25 15:39:07 by elebouch          #+#    #+#             */
-/*   Updated: 2018/01/25 16:23:33 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/01/25 17:47:12 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,13 @@
 
 t_file *process_error(char *dir, int error)
 {
-	if (error == ENOTDIR)
-		return (get_info("", dir));
+	char **file_name;
+	int i;
 
+	file_name = ft_strsplit(dir, '/');
+	i = -1;
+	while (file_name[++i]);
+	if (error == ENOTDIR)
+		return (get_info(dir, file_name[i - 1]));
 	return(NULL);
 }
