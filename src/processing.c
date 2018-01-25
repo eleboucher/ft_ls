@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/13 15:02:51 by elebouch          #+#    #+#             */
-/*   Updated: 2018/01/25 13:14:25 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/01/25 16:21:15 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,10 @@ t_file *ft_getls(char *dir)
 	t_file	*cpy;
 
 	cpy = NULL;
-	if (!(rep = opendir(dir)) && errno == ENOTDIR)
-		return (NULL);
-	if (!rep)
-		return (NULL);
+	if (!(rep = opendir(dir)))
+	{
+		return (process_error(dir, (int) errno));
+	}
 	while ((readfile = readdir(rep)))
 	{
 		if (cpy)
