@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/12 17:15:29 by elebouch          #+#    #+#             */
-/*   Updated: 2018/01/15 16:40:04 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/01/25 15:32:20 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,14 @@ int		ft_getdir(int argc, char **argv, int i, t_ls *data)
 	y = 0;
 	if (i == argc)
 	{
-		if (!(data->dir = malloc(sizeof(char *)	* 2)))
+		if (!(data->dir = (char**)malloc(sizeof(char *)	* 2)))
 			return (0);
 		data->dir[0] = ft_strdup(".");
-		data->dir[1] = 0;
+		data->dir[1] = NULL;
 		data->nb_dir = 1;
 		return (1);
 	}
-	if (!(data->dir = malloc(sizeof(char *) * (argc - i + 1))))
+	if (!(data->dir = (char**)malloc(sizeof(char *) * (argc - i + 1))))
 		return (0);
 	while (i < argc)
 	{
@@ -112,12 +112,17 @@ int		main(int argc, char **argv)
 		return (0);
 	ft_initialize(data);
 	if (!(ret = ft_getargs(argc, argv, data)))
+	{
+		free(data);
 		return (0);
+	}
 	else if (ret == -1)
 	{
+		free(data);
 		write (1, "usage: ft_ls [-aRrtl] [file ...]\n", 33);
 		return (0);
 	}
 	process(data);	
 	display(data);
+	free_ls(&data);
 }

@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/13 15:02:51 by elebouch          #+#    #+#             */
-/*   Updated: 2018/01/24 21:29:17 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/01/25 13:14:25 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,16 @@ t_file 	*get_info(char *dir, char *d_name)
 	lstat(dir, &file->stat);
 	file->isdir = 0;
 	file->next = NULL;
+	file->inside = NULL;
 	return (file);
 }
 
 char *joindir(char *dir,char *newdir)
 {
-	dir = ft_strjoin(dir, "/");
-	dir = ft_strjoin(dir, newdir);
+	dir = ft_strdup(dir);
+	if ((ft_strcmp(dir, "/")))
+		dir = ft_strcleanjoin(dir, "/");
+	dir = ft_strcleanjoin(dir, newdir);
 	return (dir);
 }
 
@@ -45,7 +48,6 @@ t_file *ft_getls(char *dir)
 		return (NULL);
 	if (!rep)
 		return (NULL);
-	printf("PATH ------> %s\n", dir);
 	while ((readfile = readdir(rep)))
 	{
 		if (cpy)

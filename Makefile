@@ -6,7 +6,7 @@
 #    By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/01/23 12:59:48 by elebouch          #+#    #+#              #
-#    Updated: 2018/01/24 21:28:08 by elebouch         ###   ########.fr        #
+#    Updated: 2018/01/25 13:05:43 by elebouch         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,6 +25,7 @@ SRC= \
 	display.c \
 	processing.c \
 	sort.c \
+	free.c \
 
 OBJ = $(addprefix $(OBJ_DIR), $(SRC:.c=.o))
 

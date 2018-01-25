@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/12 17:17:34 by elebouch          #+#    #+#             */
-/*   Updated: 2018/01/24 21:30:51 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/01/25 13:07:04 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,4 +55,5 @@ t_file *ft_getls(char *dir);
 void ft_mergesort(t_file **file);
 void split (t_file *src, t_file **front, t_file **back);
 t_file *sorted(t_file *a, t_file *b);
+void free_ls(t_ls **ls);
 #endif
