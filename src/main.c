@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/12 17:15:29 by elebouch          #+#    #+#             */
-/*   Updated: 2018/01/25 15:32:20 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/01/25 16:18:53 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,10 +74,6 @@ int		ft_getargs(int argc, char **argv, t_ls *data)
 	int i;
 
 	i = 0;
-	if (argc == 1)
-	{
-		ft_getdir(argc, argv, 1, data);
-	}
 	while (++i < argc)
 	{
 		if (argv[i][0] && argv[i][0] == '-')
