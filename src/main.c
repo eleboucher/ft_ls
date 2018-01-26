@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/12 17:15:29 by elebouch          #+#    #+#             */
-/*   Updated: 2018/01/25 16:18:53 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/01/26 13:21:35 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,9 +61,7 @@ int	ft_getoption(char *str, t_ls *data)
 	if (!data->fg_l && !data->fg_sr && !data->fg_br && !data->fg_t &&
 			!data->fg_a)
 	{
-		write (1, "ft_ls: illegal option -- ", 25);
-		write (1, str, 1);
-		write(1, "\n", 1);
+		ft_printf("ft_ls: illegal option -- %s\n",str);
 		return (0);
 	}
 	return (1);
@@ -88,7 +86,7 @@ int		ft_getargs(int argc, char **argv, t_ls *data)
 		return (0);
 	return (1);
 }
-void	ft_initialize(t_ls *data)
+void	ft_initializels(t_ls *data)
 {
 	data->fg_l = 0;
 	data->fg_sr = 0;
@@ -106,7 +104,7 @@ int		main(int argc, char **argv)
 
 	if (!(data = malloc(sizeof(t_ls))))
 		return (0);
-	ft_initialize(data);
+	ft_initializels(data);
 	if (!(ret = ft_getargs(argc, argv, data)))
 	{
 		free(data);
@@ -115,7 +113,7 @@ int		main(int argc, char **argv)
 	else if (ret == -1)
 	{
 		free(data);
-		write (1, "usage: ft_ls [-aRrtl] [file ...]\n", 33);
+		printf("usage: ft_ls [-aRrtl] [file ...]\n");
 		return (0);
 	}
 	process(data);	

@@ -6,7 +6,7 @@
 #    By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/01/23 12:59:48 by elebouch          #+#    #+#              #
-#    Updated: 2018/01/25 16:23:17 by elebouch         ###   ########.fr        #
+#    Updated: 2018/01/26 13:18:17 by elebouch         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,7 +33,7 @@ OBJ = $(addprefix $(OBJ_DIR), $(SRC:.c=.o))
 all : lib $(NAME)
 
 $(NAME) : $(OBJ)
-	@$(CC) $(CFLAGS) $^ -o $(NAME) libft/libft.a
+	@$(CC) $(CFLAGS) $^ -o $(NAME) libft/libftprintf.a
 
 lib:
 	@make -C libft/

@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/15 16:04:23 by elebouch          #+#    #+#             */
-/*   Updated: 2018/01/25 17:55:36 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/01/26 13:21:23 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ void display_file (t_file *file, t_ls *data, int i)
 				&& ft_strcmp(file->file_name, "..") != 0) &&
 				S_ISDIR(file->stat.st_mode))
 		{
+			ft_printf("%s:\n", file->path);
 			file->inside = ft_getls(file->path);
 			display_file(file->inside, data, i);
 		}

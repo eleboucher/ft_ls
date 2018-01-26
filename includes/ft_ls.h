@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/12 17:17:34 by elebouch          #+#    #+#             */
-/*   Updated: 2018/01/25 16:23:10 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/01/26 13:19:26 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 #include <errno.h>
 #include <unistd.h>
 #include "libft.h"
-
+#include "ft_printf.h"
 typedef struct		s_file 
 {
 #ifdef _DARWIN_FEATURE_64_BIT_INODE
