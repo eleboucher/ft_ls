@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/15 16:04:23 by elebouch          #+#    #+#             */
-/*   Updated: 2018/01/26 13:21:23 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/01/26 14:09:37 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,23 +14,32 @@
 
 void display_file (t_file *file, t_ls *data, int i)
 {
-    while (file)
-    {
-    	if (!data->fg_a && ft_strcmp(file->file_name, ".") != 0 &&
-				ft_strcmp(file->file_name, "..") != 0)
-    		ft_putendl(file->file_name);
-    	else if (data->fg_a)
-    		ft_putendl(file->file_name);
-		if (data->fg_br && (ft_strcmp(file->file_name, ".") != 0 
-				&& ft_strcmp(file->file_name, "..") != 0) &&
-				S_ISDIR(file->stat.st_mode))
+	t_file *cpy;
+
+	cpy = file;
+	while (file)
+	{
+		if (!data->fg_a && file->file_name[0] != '.')
+			ft_printf("%s\n", file->file_name);
+		else if (data->fg_a)
+			ft_printf("%s\n", file->file_name);
+		file = file->next;
+	}
+	if (data->fg_br)
+	{
+		while (cpy)
 		{
-			ft_printf("%s:\n", file->path);
-			file->inside = ft_getls(file->path);
-			display_file(file->inside, data, i);
+			if (data->fg_br && (ft_strcmp(cpy->file_name, ".") != 0 
+						&& ft_strcmp(cpy->file_name, "..") != 0) &&
+					S_ISDIR(cpy->stat.st_mode))
+			{
+				ft_printf("%s:\n", cpy->path);
+				cpy->inside = ft_getls(cpy->path);
+				display_file(cpy->inside, data, i);
+			}
+			cpy = cpy->next;
 		}
-    	file = file->next;
-    }	
+	}
 }
 
 void	display(t_ls *data)
