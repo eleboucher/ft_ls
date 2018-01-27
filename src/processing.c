@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/13 15:02:51 by elebouch          #+#    #+#             */
-/*   Updated: 2018/01/25 18:02:29 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/01/27 12:29:09 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,10 @@ t_file 	*get_info(char *dir, char *d_name)
 char *joindir(char *dir,char *newdir)
 {
 	dir = ft_strdup(dir);
-	if ((ft_strcmp(dir, "/")))
+	if (ft_strcmp(dir, "/") && ft_strcmp(dir, "."))
 		dir = ft_strcleanjoin(dir, "/");
-	dir = ft_strcleanjoin(dir, newdir);
+	if (ft_strcmp(newdir, ".") && ft_strcmp(newdir, ".."))
+		dir = ft_strcleanjoin(dir, newdir);
 	return (dir);
 }
 
@@ -72,8 +73,6 @@ int	process(t_ls *data)
 	if (!(data->files = malloc(sizeof(t_file) * data->nb_dir)))
 		return (0);
 	while (++i < data->nb_dir)
-	{
 		data->files[i] = ft_getls(data->dir[i]);
-	}
 	return(1);
 }

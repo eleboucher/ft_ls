@@ -6,7 +6,7 @@
 #    By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/01/23 12:59:48 by elebouch          #+#    #+#              #
-#    Updated: 2018/01/26 13:18:17 by elebouch         ###   ########.fr        #
+#    Updated: 2018/01/27 11:52:47 by elebouch         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,6 +23,7 @@ CFLAGS = -Wall -Werror -Wextra $(INCLUDE) -g
 SRC= \
 	main.c \
 	display.c \
+	display_rights.c\
 	processing.c \
 	sort.c \
 	free.c \

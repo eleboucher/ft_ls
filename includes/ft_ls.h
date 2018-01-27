@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/12 17:17:34 by elebouch          #+#    #+#             */
-/*   Updated: 2018/01/26 13:19:26 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/01/27 11:52:28 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,4 +57,6 @@ void split (t_file *src, t_file **front, t_file **back);
 t_file *sorted(t_file *a, t_file *b);
 void free_ls(t_ls **ls);
 t_file *process_error(char *dir, int error);
+char print_type(mode_t mode);
+char *print_right(mode_t mode);
 #endif
