@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/13 15:02:51 by elebouch          #+#    #+#             */
-/*   Updated: 2018/01/27 12:29:09 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/01/29 16:44:29 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ t_file 	*get_info(char *dir, char *d_name)
 	lstat(file->path, &file->stat);
 	file->isdir = 0;
 	file->next = NULL;
+	file->error = NULL;
 	file->inside = NULL;
 	return (file);
 }
@@ -30,7 +31,9 @@ t_file 	*get_info(char *dir, char *d_name)
 char *joindir(char *dir,char *newdir)
 {
 	dir = ft_strdup(dir);
-	if (ft_strcmp(dir, "/") && ft_strcmp(dir, "."))
+	if (!ft_strcmp(dir, newdir))
+		return (dir);
+	if (ft_strcmp(dir, "/"))
 		dir = ft_strcleanjoin(dir, "/");
 	if (ft_strcmp(newdir, ".") && ft_strcmp(newdir, ".."))
 		dir = ft_strcleanjoin(dir, newdir);
@@ -46,7 +49,7 @@ t_file *ft_getls(char *dir)
 
 	cpy = NULL;
 	if (!(rep = opendir(dir)))
-		return (process_error(dir, (int) errno));
+		return (process_error(dir, (int)errno));
 	while ((readfile = readdir(rep)))
 	{
 		if (cpy)

@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/12 17:15:29 by elebouch          #+#    #+#             */
-/*   Updated: 2018/01/26 13:21:35 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/01/29 16:01:54 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,12 +54,14 @@ int	ft_getoption(char *str, t_ls *data)
 			data->fg_sr = 1;
 		else if (*str == 't')
 			data->fg_t = 1;
+		else if (*str == 'G')
+			data->fg_bg = 1;
 		else 
 			break;
 		str++;
 	}
 	if (!data->fg_l && !data->fg_sr && !data->fg_br && !data->fg_t &&
-			!data->fg_a)
+			!data->fg_a && !data->fg_bg)
 	{
 		ft_printf("ft_ls: illegal option -- %s\n",str);
 		return (0);
@@ -93,6 +95,7 @@ void	ft_initializels(t_ls *data)
 	data->fg_br = 0;
 	data->fg_a = 0;
 	data->fg_t = 0;
+	data->fg_bg = 0;
 	data->dir = NULL;
 	data->files = NULL;
 	data->nb_dir = 0;
