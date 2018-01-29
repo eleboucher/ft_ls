@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/15 16:04:23 by elebouch          #+#    #+#             */
-/*   Updated: 2018/01/29 18:08:17 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/01/29 18:27:09 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void display_long(t_file *file, t_ls *data)
 void display_file (t_file *file, t_ls *data, int i)
 {
 	if (file->error)
-		ft_putstr(file->file_name);
+		ft_putstr_fd(file->file_name, 2);
 	else
 	{
 		if (!data->fg_l)
