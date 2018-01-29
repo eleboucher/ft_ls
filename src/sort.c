@@ -6,13 +6,27 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/24 20:57:53 by elebouch          #+#    #+#             */
-/*   Updated: 2018/01/29 09:45:25 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/01/29 17:34:21 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-void ft_mergesort(t_file **file)
+static int	ascii_sort(t_file *a, t_file *b)
+{
+	return (ft_strcmp(a->file_name, b->file_name));
+}
+
+static int	time_sort(t_file *a, t_file *b)
+{
+	if (a->stat.st_mtimespec.tv_sec == b->stat.st_mtimespec.tv_sec)
+		return (ft_strcmp(a->file_name, b->file_name));
+	if (a->stat.st_mtimespec.tv_sec > b->stat.st_mtimespec.tv_sec)
+		return (-1);
+	return (1);
+}
+
+void ft_mergesort(t_file **file, t_ls *data)
 {
 	t_file *head;
 	t_file *a;
@@ -22,9 +36,12 @@ void ft_mergesort(t_file **file)
 	if (!head || !head->next)
 		return ;
 	split(head, &a, &b);
-	ft_mergesort(&a);
-	ft_mergesort(&b);
-	*file = sorted(a, b);
+	ft_mergesort(&a, data);
+	ft_mergesort(&b, data);
+	if (!data->fg_t)
+		*file = sorted(a, b, &ascii_sort);
+	else
+		*file = sorted(a, b, &time_sort);
 }
 
 void split (t_file *src, t_file **front, t_file **back)
@@ -54,7 +71,7 @@ void split (t_file *src, t_file **front, t_file **back)
 	slow->next = NULL;
 }
 
-t_file *sorted(t_file *a, t_file *b)
+t_file *sorted(t_file *a, t_file *b,int (*f)(t_file *a, t_file *b))
 {
 	t_file *ret;
 
@@ -63,15 +80,15 @@ t_file *sorted(t_file *a, t_file *b)
 		return(b);
 	else if (!b)
 		return (a);
-	if (ft_strcmp(a->file_name, b->file_name) < 0)
+	if ((*f)(a, b) < 0)
 	{
 		ret = a;
-		ret->next = sorted(a->next, b);
+		ret->next = sorted(a->next, b, f);
 	}
 	else
 	{
 		ret = b;
-		ret->next = sorted(a, b->next);
+		ret->next = sorted(a, b->next, f);
 	}
 	return (ret);
 }

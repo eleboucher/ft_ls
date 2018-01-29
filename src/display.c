@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/15 16:04:23 by elebouch          #+#    #+#             */
-/*   Updated: 2018/01/29 16:28:20 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/01/29 18:08:17 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,10 @@ void display_small(t_file *file, t_ls *data)
 
 void display_long(t_file *file, t_ls *data)
 {
-	mode_t mode;
 	t_size size;
 
-	print_total(file, data->fg_a);
+	if (S_ISDIR(file->stat.st_mode))
+		print_total(file, data->fg_a);
 	init_size(&size);
 	maxsize_guid(file, &size, data->fg_a);
 	max_nlinknsize(file, &size, data->fg_a);
@@ -36,12 +36,11 @@ void display_long(t_file *file, t_ls *data)
 	{
 		if (!(!data->fg_a && file->file_name[0] == '.'))
 		{
-			mode = file->stat.st_mode;
-			print_type(mode);
-			print_right(mode);
+			print_type(file->stat.st_mode);
+			print_right(file->stat.st_mode);
 			putpadnbr(file->stat.st_nlink, size.nlink + 1, 0);
 			print_guid(file, size);
-			if (S_ISCHR(mode) || S_ISBLK(mode))
+			if (S_ISCHR(file->stat.st_mode) || S_ISBLK(file->stat.st_mode))
 				print_majmin(file, size);
 			else
 				putpadnbr(file->stat.st_size, size.size, 0);
@@ -55,26 +54,28 @@ void display_long(t_file *file, t_ls *data)
 
 void display_file (t_file *file, t_ls *data, int i)
 {
-	t_file *cpy;
-
-	cpy = file;
-	if (!data->fg_l)
-		display_small(file, data);
+	if (file->error)
+		ft_putstr(file->file_name);
 	else
-		display_long(file, data);
+	{
+		if (!data->fg_l)
+			display_small(file, data);
+		else
+			display_long(file, data);
+	}
 	if (data->fg_br)
-		while (cpy)
+		while (file)
 		{
-			if (data->fg_br && (ft_strcmp(cpy->file_name, ".") != 0 
-						&& ft_strcmp(cpy->file_name, "..") != 0) &&
-					S_ISDIR(cpy->stat.st_mode) && (data->fg_a || 
-						(!data->fg_a && cpy->file_name[0] != '.')))
+			if (data->fg_br && (ft_strcmp(file->file_name, ".") != 0 
+						&& ft_strcmp(file->file_name, "..") != 0) &&
+					S_ISDIR(file->stat.st_mode) && (data->fg_a || 
+						(!data->fg_a && file->file_name[0] != '.')))
 			{
-				ft_printf("\n%s:\n", cpy->path);
-				cpy->inside = ft_getls(cpy->path);
-				display_file(cpy->inside, data, i);
+				ft_printf("\n%s:\n", file->path);
+				file->inside = ft_getls(file->path, data);
+				display_file(file->inside, data, i);
 			}
-			cpy = cpy->next;
+			file = file->next;
 		}
 }
 
@@ -88,7 +89,8 @@ void	display(t_ls *data)
 	while (++i < data->nb_dir)
 	{
 		file = data->files[i];
-		if (file && data->nb_dir != 1 && S_ISDIR(file->stat.st_mode))
+		if (file && data->nb_dir != 1 && (S_ISDIR(file->stat.st_mode) ||
+					file->error))
 			ft_printf("\n%s:\n", file->path);
 		if (file)
 			display_file(file, data, i);

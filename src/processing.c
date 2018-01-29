@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/13 15:02:51 by elebouch          #+#    #+#             */
-/*   Updated: 2018/01/29 16:44:29 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/01/29 17:42:13 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ t_file 	*get_info(char *dir, char *d_name)
 	lstat(file->path, &file->stat);
 	file->isdir = 0;
 	file->next = NULL;
-	file->error = NULL;
+	file->error = 0;
 	file->inside = NULL;
 	return (file);
 }
@@ -40,7 +40,7 @@ char *joindir(char *dir,char *newdir)
 	return (dir);
 }
 
-t_file *ft_getls(char *dir)
+t_file *ft_getls(char *dir, t_ls *data)
 {
 	DIR* rep;
 	struct dirent *readfile;
@@ -64,7 +64,7 @@ t_file *ft_getls(char *dir)
 		}
 	}
 	closedir(rep);
-	ft_mergesort(&file);
+	ft_mergesort(&file, data);
 	return (file);
 }
 
@@ -76,6 +76,10 @@ int	process(t_ls *data)
 	if (!(data->files = malloc(sizeof(t_file) * data->nb_dir)))
 		return (0);
 	while (++i < data->nb_dir)
-		data->files[i] = ft_getls(data->dir[i]);
+	{
+		data->files[i] = ft_getls(data->dir[i], data);
+		if (data->fg_sr)
+			reverse(&data->files[i]);
+	}
 	return(1);
 }
