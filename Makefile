@@ -6,7 +6,7 @@
 #    By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/01/23 12:59:48 by elebouch          #+#    #+#              #
-#    Updated: 2018/01/30 22:16:45 by elebouch         ###   ########.fr        #
+#    Updated: 2018/01/30 23:31:54 by elebouch         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,11 +35,11 @@ SRC= \
 
 OBJ = $(addprefix $(OBJ_DIR), $(SRC:.c=.o))
 
-all :  $(NAME)
+all:  $(NAME)
 
-$(NAME) : lib $(OBJ)
+$(NAME): lib $(OBJ)
 	@echo  "\033[94mCompiling ft_ls\033[0m"
-	@$(CC) $(CFLAGS) $(OBJ) -o $(NAME) libft/libftprintf.a
+	@$(CC) $(CFLAGS) $(OBJ) -o $(NAME) -L libft/ -lftprintf
 	@echo  "\033[34mDone\033[0m"
 
 lib:

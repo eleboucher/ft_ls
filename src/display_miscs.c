@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/29 15:37:22 by elebouch          #+#    #+#             */
-/*   Updated: 2018/01/30 18:33:10 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/01/30 23:26:08 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void	display_link(t_file *file)
 
 void	print_majmin(t_file *file, t_size size)
 {
-	putpadnbr(major(file->stat.st_rdev), size.maj + 1, 0);
+	putpadnbr((size_t)major(file->stat.st_rdev), size.maj + 1, 0);
 	ft_putchar(',');
-	putpadnbr(minor(file->stat.st_rdev), size.min + 1, 0);
+	putpadnbr((size_t)minor(file->stat.st_rdev), size.min + 1, 0);
 }

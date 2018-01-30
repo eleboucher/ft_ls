@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/12 17:17:34 by elebouch          #+#    #+#             */
-/*   Updated: 2018/01/30 18:26:42 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/01/30 23:28:08 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ typedef struct		s_ls
 	int				fg_sr;
 	int				fg_t;
 	int				fg_bg;
+	int				error;
 	int				nb_dir;
 	char			**dir;
 	t_file			**files;
@@ -94,7 +95,7 @@ void				print_right(mode_t mode);
 void				print_total(t_file *file, int fg_a);
 void				print_guid(t_file *file, t_size size);
 void				maxsize_guid(t_file *file, t_size *size, int fg_a);
-size_t				countdigit(long n, int i);
+size_t				countdigit(long n, size_t i);
 void				init_size(t_size *size);
 void				max_nlinknsize(t_file *file, t_size *size, int fg_a);
 void				putpadstr(char *str, size_t n, int fg_minus);
@@ -105,4 +106,13 @@ void				display_file_name(t_file *file, t_ls *data);
 void				display_link(t_file *file);
 void				reverse(t_file **file);
 void				ft_quicksortfiles(t_file **files, int begin, int end);
+int					ft_getdir(int argc, char **argv, int i, t_ls *data);
+int					ft_getoption(char *str, t_ls *data);
+int					ft_getargs(int argc, char **argv, t_ls *data);
+void				ft_initializels(t_ls *data);
+void				display_small(t_file *file, t_ls *data);
+void				display_long(t_file *file, t_ls *data);
+void				display_file(t_file *file, t_ls *data, int i);
+char				*get_color(t_file *file);
+void				free_file(t_file **files);
 #endif

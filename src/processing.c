@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/13 15:02:51 by elebouch          #+#    #+#             */
-/*   Updated: 2018/01/30 18:45:15 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/01/30 23:26:38 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ int		process(t_ls *data)
 	int	i;
 
 	i = -1;
-	if (!(data->files = malloc(sizeof(t_file) * data->nb_dir)))
+	if (!(data->files = malloc(sizeof(t_file) * (size_t)data->nb_dir)))
 		return (0);
 	while (++i < data->nb_dir)
 	{

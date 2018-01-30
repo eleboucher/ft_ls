@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/12 17:15:29 by elebouch          #+#    #+#             */
-/*   Updated: 2018/01/30 18:43:39 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/01/30 23:18:39 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,8 @@ int		ft_getdir(int argc, char **argv, int i, t_ls *data)
 		data->nb_dir = 1;
 		return (1);
 	}
-	if (!(data->dir = (char**)malloc(sizeof(char *) * (argc - i + 1))))
+	if (!(data->dir = (char**)malloc(sizeof(char *) *
+					(size_t)(argc - i + 1))))
 		return (0);
 	while (i < argc)
 	{
@@ -40,8 +41,7 @@ int		ft_getdir(int argc, char **argv, int i, t_ls *data)
 
 int		ft_getoption(char *str, t_ls *data)
 {
-	str++;
-	while (*str++)
+	while (*str && !data->error)
 	{
 		if (*str == 'l')
 			data->fg_l = 1;
@@ -56,12 +56,12 @@ int		ft_getoption(char *str, t_ls *data)
 		else if (*str == 'G')
 			data->fg_bg = 1;
 		else
-			break ;
+			data->error = 1;
+		str++;
 	}
-	if (!data->fg_l && !data->fg_sr && !data->fg_br && !data->fg_t &&
-			!data->fg_a && !data->fg_bg)
+	if (data->error || *(str - 1) == '-')
 	{
-		ft_printf("ft_ls: illegal option -- %s\n", str);
+		ft_printf("ft_ls: illegal option -- %c\n", *(str - 1));
 		return (0);
 	}
 	return (1);
@@ -76,7 +76,7 @@ int		ft_getargs(int argc, char **argv, t_ls *data)
 	{
 		if (argv[i][0] && argv[i][0] == '-')
 		{
-			if (!(ft_getoption(argv[i], data)))
+			if (!(ft_getoption(argv[i] + 1, data)))
 				return (-1);
 		}
 		else
@@ -95,6 +95,7 @@ void	ft_initializels(t_ls *data)
 	data->fg_a = 0;
 	data->fg_t = 0;
 	data->fg_bg = 0;
+	data->error = 0;
 	data->dir = NULL;
 	data->files = NULL;
 	data->nb_dir = 0;
@@ -116,7 +117,7 @@ int		main(int argc, char **argv)
 	else if (ret == -1)
 	{
 		free(data);
-		printf("usage: ft_ls [-aRrtl] [file ...]\n");
+		printf("usage: ft_ls [-aRrtlG] [file ...]\n");
 		return (0);
 	}
 	process(data);

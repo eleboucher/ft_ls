@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/31 19:14:15 by elebouch          #+#    #+#             */
-/*   Updated: 2018/01/10 15:11:26 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/01/30 23:24:27 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,7 @@ int					ft_power(long nb, long power);
 void				ft_putbits(const char byte);
 int					ft_sqrt(int nb);
 int					ft_abs(int i);
+long				ft_labs(long i);
 char				*ft_itoa_base(int n, int base);
 char				*ft_strtolower(char *str);
 char				*ft_lltoa_base(unsigned long long n, int base);

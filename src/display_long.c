@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/29 09:47:35 by elebouch          #+#    #+#             */
-/*   Updated: 2018/01/30 18:31:39 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/01/30 23:24:42 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ void	print_date(t_file *file)
 	ft_putchar(' ');
 	ft_putnstr(&(str[4]), 6);
 	ft_putchar(' ');
-	if (ft_abs(diff) > (3600 * 24 * 30.5 * 6))
+	if (ft_labs(diff) > (3600 * 24 * 30.5 * 6))
 	{
 		ft_putchar(' ');
 		ft_putnstr(&(str[20]), 4);

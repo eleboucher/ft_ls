@@ -6,11 +6,16 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/14 09:17:32 by elebouch          #+#    #+#             */
-/*   Updated: 2017/12/18 15:12:01 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/01/30 23:23:54 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 int	ft_abs(int i)
+{
+	return ((i < 0) ? i * -1 : i);
+}
+
+long ft_labs(long i)
 {
 	return ((i < 0) ? i * -1 : i);
 }

@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/29 09:55:56 by elebouch          #+#    #+#             */
-/*   Updated: 2018/01/30 18:48:37 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/01/30 23:27:47 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void	max_nlinknsize(t_file *f, t_size *s, int fg_a)
 	}
 }
 
-size_t	countdigit(long n, int i)
+size_t	countdigit(long n, size_t i)
 {
 	if (n == 0 && i == 0)
 		return (1);
