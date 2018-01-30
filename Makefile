@@ -6,7 +6,7 @@
 #    By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/01/23 12:59:48 by elebouch          #+#    #+#              #
-#    Updated: 2018/01/30 11:42:02 by elebouch         ###   ########.fr        #
+#    Updated: 2018/01/30 22:16:45 by elebouch         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,8 +16,7 @@ SRC_DIR = ./src/
 OBJ_DIR = ./obj/
 INCLUDE = -I libft/includes/ -I includes/
 
-
-CC = clang
+CC = gcc
 CFLAGS = -Wall -Werror -Wextra $(INCLUDE) -O3
 
 SRC= \
@@ -36,17 +35,20 @@ SRC= \
 
 OBJ = $(addprefix $(OBJ_DIR), $(SRC:.c=.o))
 
-all : lib $(NAME)
+all :  $(NAME)
 
-$(NAME) : $(OBJ)
-	@$(CC) $(CFLAGS) $^ -o $(NAME) libft/libftprintf.a
+$(NAME) : lib $(OBJ)
+	@echo  "\033[94mCompiling ft_ls\033[0m"
+	@$(CC) $(CFLAGS) $(OBJ) -o $(NAME) libft/libftprintf.a
+	@echo  "\033[34mDone\033[0m"
 
 lib:
+	@echo "\033[94mCompiling libft and printf\033[0m"
 	@make -C libft/
 
 obj/%.o: src/%.c
 	@mkdir -p $(OBJ_DIR)
-	@$(CC) $(CFLAGS) -o $@ -c $< 
+	@$(CC) $(CFLAGS) -o $@ -c $<
 
 clean:
 	@make clean -C libft/
@@ -58,4 +60,4 @@ fclean: clean
 
 re: 
 	@make fclean 
-	@make
+	@make all
