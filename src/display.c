@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/15 16:04:23 by elebouch          #+#    #+#             */
-/*   Updated: 2018/01/29 18:27:09 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/01/30 07:26:59 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,8 @@ void	display(t_ls *data)
 	int	i;
 
 	i = -1;
+	if (data->nb_dir > 1)
+		ft_quicksortfiles(data->files, 0, data->nb_dir - 1);
 	file = data->files[0];
 	while (++i < data->nb_dir)
 	{

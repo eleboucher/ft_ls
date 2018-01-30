@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/12 17:17:34 by elebouch          #+#    #+#             */
-/*   Updated: 2018/01/29 17:39:41 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/01/30 07:20:41 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,4 +100,5 @@ void	print_majmin(t_file *file, t_size size);
 void display_file_name(t_file *file, t_ls *data);
 void display_link(t_file *file);
 void reverse(t_file **file);
+void		ft_quicksortfiles(t_file **files, int begin, int end);
 #endif
