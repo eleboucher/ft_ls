@@ -6,13 +6,13 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/25 11:14:15 by elebouch          #+#    #+#             */
-/*   Updated: 2018/01/25 15:33:28 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/01/30 18:35:24 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-void free_file(t_file **files)
+void	free_file(t_file **files)
 {
 	t_file *file;
 	t_file *tmp;
@@ -29,11 +29,10 @@ void free_file(t_file **files)
 	}
 }
 
-
-void free_ls(t_ls **ls)
+void	free_ls(t_ls **ls)
 {
-	t_ls *data;
-	int i;
+	t_ls	*data;
+	int		i;
 
 	data = *ls;
 	i = -1;

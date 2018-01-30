@@ -6,7 +6,7 @@
 #    By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/01/23 12:59:48 by elebouch          #+#    #+#              #
-#    Updated: 2018/01/30 07:21:56 by elebouch         ###   ########.fr        #
+#    Updated: 2018/01/30 11:42:02 by elebouch         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ INCLUDE = -I libft/includes/ -I includes/
 
 
 CC = clang
-CFLAGS = -Wall -Werror -Wextra $(INCLUDE) -g 
+CFLAGS = -Wall -Werror -Wextra $(INCLUDE) -O3
 
 SRC= \
 	main.c \

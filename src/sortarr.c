@@ -6,16 +6,16 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/30 07:15:49 by elebouch          #+#    #+#             */
-/*   Updated: 2018/01/30 07:24:45 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/01/30 18:48:12 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-static void swapfiles(t_file **files, int a, int b)
+static void	swapfiles(t_file **files, int a, int b)
 {
 	t_file *tmp;
-	
+
 	if (!files)
 		return ;
 	tmp = files[a];

@@ -6,13 +6,13 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/29 15:37:22 by elebouch          #+#    #+#             */
-/*   Updated: 2018/01/29 16:27:14 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/01/30 18:33:10 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-char *get_color(t_file *file)
+char	*get_color(t_file *file)
 {
 	mode_t mode;
 
@@ -32,7 +32,7 @@ char *get_color(t_file *file)
 	return (DFT);
 }
 
-void display_file_name(t_file *file, t_ls *data)
+void	display_file_name(t_file *file, t_ls *data)
 {
 	if (data->fg_bg)
 		ft_putstr(get_color(file));
@@ -45,9 +45,9 @@ void display_file_name(t_file *file, t_ls *data)
 		display_link(file);
 }
 
-void display_link(t_file *file)
+void	display_link(t_file *file)
 {
-	char  link_name[1024];
+	char link_name[1024];
 
 	ft_putstr(" -> ");
 	ft_bzero(&link_name, 1024);

@@ -6,13 +6,13 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/13 15:02:51 by elebouch          #+#    #+#             */
-/*   Updated: 2018/01/29 17:42:13 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/01/30 18:45:15 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-t_file 	*get_info(char *dir, char *d_name)
+t_file	*get_info(char *dir, char *d_name)
 {
 	t_file *file;
 
@@ -28,7 +28,7 @@ t_file 	*get_info(char *dir, char *d_name)
 	return (file);
 }
 
-char *joindir(char *dir,char *newdir)
+char	*joindir(char *dir, char *newdir)
 {
 	dir = ft_strdup(dir);
 	if (!ft_strcmp(dir, newdir))
@@ -40,12 +40,12 @@ char *joindir(char *dir,char *newdir)
 	return (dir);
 }
 
-t_file *ft_getls(char *dir, t_ls *data)
+t_file	*ft_getls(char *dir, t_ls *data)
 {
-	DIR* rep;
-	struct dirent *readfile;
-	t_file *file;
-	t_file	*cpy;
+	DIR				*rep;
+	struct dirent	*readfile;
+	t_file			*file;
+	t_file			*cpy;
 
 	cpy = NULL;
 	if (!(rep = opendir(dir)))
@@ -68,7 +68,7 @@ t_file *ft_getls(char *dir, t_ls *data)
 	return (file);
 }
 
-int	process(t_ls *data)
+int		process(t_ls *data)
 {
 	int	i;
 
@@ -81,5 +81,5 @@ int	process(t_ls *data)
 		if (data->fg_sr)
 			reverse(&data->files[i]);
 	}
-	return(1);
+	return (1);
 }

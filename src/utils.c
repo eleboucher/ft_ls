@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/29 09:55:56 by elebouch          #+#    #+#             */
-/*   Updated: 2018/01/29 16:29:17 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/01/30 18:48:37 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	max_nlinknsize(t_file *f, t_size *s, int fg_a)
 				if ((countdigit(major(f->stat.st_rdev), 0) +
 						countdigit(minor(f->stat.st_rdev), 0) + 4) > s->size)
 				{
-					s->size = countdigit(major(f->stat.st_rdev), 0) + 
+					s->size = countdigit(major(f->stat.st_rdev), 0) +
 						countdigit(minor(f->stat.st_rdev), 0) + 4;
 					s->maj = countdigit(major(f->stat.st_rdev), 0);
 					s->min = countdigit(minor(f->stat.st_rdev), 0);

@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/24 20:57:53 by elebouch          #+#    #+#             */
-/*   Updated: 2018/01/29 18:18:15 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/01/30 18:47:39 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static int	time_sort(t_file *a, t_file *b)
 	return (1);
 }
 
-void ft_mergesort(t_file **file, t_ls *data)
+void		ft_mergesort(t_file **file, t_ls *data)
 {
 	t_file *head;
 	t_file *a;
@@ -44,7 +44,7 @@ void ft_mergesort(t_file **file, t_ls *data)
 		*file = sorted(a, b, &time_sort);
 }
 
-void split (t_file *src, t_file **front, t_file **back)
+void		split(t_file *src, t_file **front, t_file **back)
 {
 	t_file *fast;
 	t_file *slow;
@@ -62,7 +62,7 @@ void split (t_file *src, t_file **front, t_file **back)
 		fast = src->next;
 		while (fast && fast->next)
 		{
-			fast = (fast->next)? fast->next->next : fast->next;
+			fast = (fast->next) ? fast->next->next : fast->next;
 			slow = slow->next;
 		}
 	}
@@ -71,13 +71,13 @@ void split (t_file *src, t_file **front, t_file **back)
 	slow->next = NULL;
 }
 
-t_file *sorted(t_file *a, t_file *b,int (*f)(t_file *a, t_file *b))
+t_file		*sorted(t_file *a, t_file *b, int (*f)(t_file *a, t_file *b))
 {
 	t_file *ret;
 
 	ret = NULL;
 	if (!a)
-		return(b);
+		return (b);
 	else if (!b)
 		return (a);
 	if ((*f)(a, b) < 0)

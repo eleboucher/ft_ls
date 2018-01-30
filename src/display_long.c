@@ -6,13 +6,13 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/29 09:47:35 by elebouch          #+#    #+#             */
-/*   Updated: 2018/01/29 16:31:40 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/01/30 18:31:39 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-void print_type(mode_t mode)
+void	print_type(mode_t mode)
 {
 	char c;
 
@@ -28,12 +28,12 @@ void print_type(mode_t mode)
 		c = 'l';
 	else if (S_ISSOCK(mode))
 		c = 's';
-	else 
+	else
 		c = '-';
 	ft_putchar(c);
 }
 
-void print_right(mode_t mode)
+void	print_right(mode_t mode)
 {
 	char ret[10];
 
@@ -41,7 +41,7 @@ void print_right(mode_t mode)
 	ret[1] = (mode & S_IWUSR) ? 'w' : '-';
 	ret[2] = (mode & S_IXUSR) ? 'x' : '-';
 	ret[3] = (mode & S_IRGRP) ? 'r' : '-';
-	ret[4] = (mode & S_IWGRP) ?	'w' : '-';
+	ret[4] = (mode & S_IWGRP) ? 'w' : '-';
 	ret[5] = (mode & S_IXGRP) ? 'x' : '-';
 	ret[6] = (mode & S_IROTH) ? 'r' : '-';
 	ret[7] = (mode & S_IWOTH) ? 'w' : '-';
@@ -59,10 +59,9 @@ void	print_total(t_file *file, int fg_a)
 	i = 0;
 	while (file)
 	{
-
 		if (!(!fg_a && file->file_name[0] == '.'))
 		{
-			total += (int) file->stat.st_blocks;
+			total += (int)file->stat.st_blocks;
 			i++;
 		}
 		file = file->next;

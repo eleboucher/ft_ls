@@ -6,18 +6,18 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/25 15:39:07 by elebouch          #+#    #+#             */
-/*   Updated: 2018/01/30 07:13:00 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/01/30 18:34:49 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-static t_file *perm(char *dir, char *file_name)
+static t_file	*perm(char *dir, char *file_name)
 {
-	char *str;
-	t_file *file;
+	char	*str;
+	t_file	*file;
 
-	str = ft_strdup("ft_ls: "); 
+	str = ft_strdup("ft_ls: ");
 	str = ft_strcleanjoin(str, file_name);
 	str = ft_strcleanjoin(str, ": Permission denied\n");
 	if (!(file = malloc(sizeof(t_file))))
@@ -26,17 +26,18 @@ static t_file *perm(char *dir, char *file_name)
 	file->path = ft_strdup(dir);
 	ft_strcpy(file->file_name, str);
 	free(str);
-	return(file);
+	return (file);
 }
 
-t_file *process_error(char *dir, int error)
+t_file			*process_error(char *dir, int error)
 {
-	char **file_name;
-	int i;
+	char	**file_name;
+	int		i;
 
 	file_name = ft_strsplit(dir, '/');
 	i = -1;
-	while (file_name[++i]);
+	while (file_name[i])
+		++i;
 	if (error == ENOTDIR)
 	{
 		if (i == 1)
@@ -52,5 +53,5 @@ t_file *process_error(char *dir, int error)
 		ft_putstr_fd(file_name[i - 1], 2);
 		ft_putstr_fd(": No such file or directory\n", 2);
 	}
-	return(NULL);
+	return (NULL);
 }
