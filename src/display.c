@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/15 16:04:23 by elebouch          #+#    #+#             */
-/*   Updated: 2018/01/31 11:19:12 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/01/31 14:25:23 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,8 @@ void	display_long(t_file *file, t_ls *data)
 	{
 		if (!(!data->fg_a && file->file_name[0] == '.'))
 		{
-			print_type(file->stat.st_mode);
-			print_right(file->stat.st_mode);
-			putpadnbr(file->stat.st_nlink, size.nlink + 1, 0);
+			print_type(file);
+			putpadnbr(file->stat.st_nlink, size.nlink, 0);
 			print_guid(file, size);
 			if (S_ISCHR(file->stat.st_mode) || S_ISBLK(file->stat.st_mode))
 				print_majmin(file, size);

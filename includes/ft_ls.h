@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/12 17:17:34 by elebouch          #+#    #+#             */
-/*   Updated: 2018/01/30 23:28:08 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/01/31 14:25:11 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@
 # include <stdio.h>
 # include <errno.h>
 # include <unistd.h>
+# include <sys/acl.h>
+# include <sys/xattr.h>
 # include "libft.h"
 # include "ft_printf.h"
 
@@ -90,8 +92,8 @@ t_file				*sorted(t_file *a, t_file *b,
 		int (*f)(t_file *a, t_file *b));
 void				free_ls(t_ls **ls);
 t_file				*process_error(char *dir, int error);
-void				print_type(mode_t mode);
-void				print_right(mode_t mode);
+void				print_type(t_file *file);
+void				print_right(t_file *file);
 void				print_total(t_file *file, int fg_a);
 void				print_guid(t_file *file, t_size size);
 void				maxsize_guid(t_file *file, t_size *size, int fg_a);
@@ -113,6 +115,7 @@ void				ft_initializels(t_ls *data);
 void				display_small(t_file *file, t_ls *data);
 void				display_long(t_file *file, t_ls *data);
 void				display_file(t_file *file, t_ls *data, int i);
+void				print_acl(t_file *file);
 char				*get_color(t_file *file);
 void				free_file(t_file **files);
 #endif

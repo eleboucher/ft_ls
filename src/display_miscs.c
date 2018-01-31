@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/29 15:37:22 by elebouch          #+#    #+#             */
-/*   Updated: 2018/01/30 23:26:08 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/01/31 14:23:11 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,25 @@ char	*get_color(t_file *file)
 	else if (S_ISDIR(mode))
 		return (BOLCYN);
 	return (DFT);
+}
+
+void	print_acl(t_file *file)
+{
+	acl_t	t;
+
+	t = NULL;
+	if (listxattr(file->path, NULL, 0, XATTR_NOFOLLOW))
+	{
+		ft_putchar('@');
+		return ;
+	}
+	if ((t = acl_get_file(file->path, ACL_TYPE_EXTENDED)))
+	{
+		ft_putchar('+');
+		acl_free((void*)t);
+	}
+	else
+		ft_putchar(' ');
 }
 
 void	display_file_name(t_file *file, t_ls *data)

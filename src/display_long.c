@@ -6,16 +6,18 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/29 09:47:35 by elebouch          #+#    #+#             */
-/*   Updated: 2018/01/30 23:24:42 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/01/31 14:27:24 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-void	print_type(mode_t mode)
+void	print_type(t_file *file)
 {
-	char c;
+	char	c;
+	mode_t	mode;
 
+	mode = file->stat.st_mode;
 	if (S_ISFIFO(mode))
 		c = 'p';
 	else if (S_ISCHR(mode))
@@ -31,12 +33,15 @@ void	print_type(mode_t mode)
 	else
 		c = '-';
 	ft_putchar(c);
+	print_right(file);
 }
 
-void	print_right(mode_t mode)
+void	print_right(t_file *file)
 {
-	char ret[10];
+	char	ret[10];
+	mode_t	mode;
 
+	mode = file->stat.st_mode;
 	ret[0] = (mode & S_IRUSR) ? 'r' : '-';
 	ret[1] = (mode & S_IWUSR) ? 'w' : '-';
 	ret[2] = (mode & S_IXUSR) ? 'x' : '-';
@@ -47,7 +52,8 @@ void	print_right(mode_t mode)
 	ret[7] = (mode & S_IWOTH) ? 'w' : '-';
 	ret[8] = (mode & S_IXOTH) ? 'x' : '-';
 	ret[9] = 0;
-	write(1, ret, 10);
+	write(1, ret, 9);
+	print_acl(file);
 }
 
 void	print_total(t_file *file, int fg_a)
