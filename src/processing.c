@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/13 15:02:51 by elebouch          #+#    #+#             */
-/*   Updated: 2018/01/31 13:45:29 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/01/31 15:29:51 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,7 @@ char	*joindir(char *dir, char *newdir)
 		return (dir);
 	if (ft_strcmp(dir, "/"))
 		dir = ft_strcleanjoin(dir, "/");
-	if (ft_strcmp(newdir, ".") && ft_strcmp(newdir, ".."))
-		dir = ft_strcleanjoin(dir, newdir);
+	dir = ft_strcleanjoin(dir, newdir);
 	return (dir);
 }
 

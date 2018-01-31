@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/12 17:15:29 by elebouch          #+#    #+#             */
-/*   Updated: 2018/01/31 15:15:42 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/01/31 15:54:02 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int		ft_getoption(char *str, t_ls *data)
 			data->error = 1;
 		str++;
 	}
-	if (data->error || *(str - 1) == '-')
+	if (data->error)
 	{
 		ft_printf("ft_ls: illegal option -- %c\n", *(str - 1));
 		return (0);
@@ -76,6 +76,11 @@ int		ft_getargs(int argc, char **argv, t_ls *data)
 	{
 		if (argv[i][0] && argv[i][0] == '-')
 		{
+			if (!ft_strcmp(argv[i], "--"))
+			{
+				i++;
+				break ;
+			}
 			if (!(ft_getoption(argv[i] + 1, data)))
 				return (-1);
 		}
