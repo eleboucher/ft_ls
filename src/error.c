@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/25 15:39:07 by elebouch          #+#    #+#             */
-/*   Updated: 2018/01/31 13:43:47 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/01/31 13:50:18 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,16 +29,24 @@ static t_file	*perm(char *dir, char *file_name)
 	free(file_name);
 	return (file);
 }
+
 static void		freearr(char ***arr)
 {
-	char **file_name;
-	int	 i;
+	char	**file_name;
+	int		i;
 
 	file_name = *arr;
 	i = -1;
 	while (file_name[++i])
 		free(file_name[i]);
 	free(file_name);
+}
+
+static void		enoent(char *f)
+{
+	ft_putstr_fd("ft_ls: ", 2);
+	ft_putstr_fd(f, 2);
+	ft_putstr_fd(": No such file or directory\n", 2);
 }
 
 t_file			*process_error(char *dir, int error)
@@ -48,7 +56,7 @@ t_file			*process_error(char *dir, int error)
 	int		i;
 
 	file_name = (dir && *dir) ? ft_strsplit(dir, '/') :
-               ft_strsplit("fts_open \n", '\n');
+		ft_strsplit("fts_open \n", '\n');
 	i = 0;
 	while (file_name[i])
 		++i;
@@ -64,11 +72,7 @@ t_file			*process_error(char *dir, int error)
 	if (error == EACCES)
 		return (perm(dir, f));
 	if (error == ENOENT)
-	{
-		ft_putstr_fd("ft_ls: ", 2);
-		ft_putstr_fd(f, 2);
-		ft_putstr_fd(": No such file or directory\n", 2);
-	}
+		enoent(f);
 	free(f);
 	return (NULL);
 }

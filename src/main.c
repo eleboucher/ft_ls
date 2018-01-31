@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/12 17:15:29 by elebouch          #+#    #+#             */
-/*   Updated: 2018/01/30 23:18:39 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/01/31 13:53:49 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,15 +112,16 @@ int		main(int argc, char **argv)
 	if (!(ret = ft_getargs(argc, argv, data)))
 	{
 		free(data);
-		return (0);
+		exit(EXIT_FAILURE);
 	}
 	else if (ret == -1)
 	{
 		free(data);
-		printf("usage: ft_ls [-aRrtlG] [file ...]\n");
-		return (0);
+		ft_printf("usage: ft_ls [-aRrtlG] [file ...]\n");
+		exit(EXIT_FAILURE);
 	}
 	process(data);
 	display(data);
 	free_ls(&data);
+	exit(EXIT_SUCCESS);
 }
