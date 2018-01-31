@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/13 15:02:51 by elebouch          #+#    #+#             */
-/*   Updated: 2018/01/30 23:26:38 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/01/31 13:45:29 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ t_file	*get_info(char *dir, char *d_name)
 	file->next = NULL;
 	file->error = 0;
 	file->inside = NULL;
+	free(d_name);
 	return (file);
 }
 
@@ -54,12 +55,12 @@ t_file	*ft_getls(char *dir, t_ls *data)
 	{
 		if (cpy)
 		{
-			cpy->next = get_info(dir, readfile->d_name);
+			cpy->next = get_info(dir, ft_strdup(readfile->d_name));
 			cpy = cpy->next;
 		}
 		else
 		{
-			cpy = get_info(dir, readfile->d_name);
+			cpy = get_info(dir, ft_strdup(readfile->d_name));
 			file = cpy;
 		}
 	}
