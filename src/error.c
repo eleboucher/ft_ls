@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/25 15:39:07 by elebouch          #+#    #+#             */
-/*   Updated: 2018/01/30 22:26:41 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/01/31 10:57:13 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,8 @@ t_file			*process_error(char *dir, int error)
 	char	**file_name;
 	int		i;
 
-	file_name = ft_strsplit(dir, '/');
+	file_name = (dir && *dir) ? ft_strsplit(dir, '/') :
+               ft_strsplit("fts_open \n", '\n');
 	i = 0;
 	while (file_name[i])
 		++i;

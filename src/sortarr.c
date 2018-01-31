@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/30 07:15:49 by elebouch          #+#    #+#             */
-/*   Updated: 2018/01/30 18:48:12 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/01/31 11:19:49 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static int	partition(t_file **files, int begin, int end)
 	pivot = files[end];
 	while (j <= end - 1)
 	{
-		if (ft_strcmp(files[j]->path, pivot->path) < 0)
+		if (files[j] && pivot && ft_strcmp(files[j]->path, pivot->path) < 0)
 		{
 			i++;
 			swapfiles(files, i, j);
@@ -50,7 +50,7 @@ void		ft_quicksortfiles(t_file **files, int begin, int end)
 	int p;
 
 	p = 0;
-	if (!files)
+	if (!files || !*files)
 		return ;
 	if (begin < end)
 	{
