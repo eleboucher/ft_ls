@@ -6,13 +6,13 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/13 15:02:51 by elebouch          #+#    #+#             */
-/*   Updated: 2018/02/01 17:56:31 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/02/01 23:19:24 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-t_file	*get_info(char *dir, char *d_name)
+t_file	*get_info(char *dir, char *d_name, int alonefile)
 {
 	t_file *file;
 
@@ -21,7 +21,7 @@ t_file	*get_info(char *dir, char *d_name)
 	ft_strcpy(file->file_name, d_name);
 	file->path = joindir(dir, d_name);
 	lstat(file->path, &file->stat);
-	file->isdir = 0;
+	file->isalone = alonefile;
 	file->next = NULL;
 	file->error = 0;
 	file->inside = NULL;
@@ -40,23 +40,7 @@ char	*joindir(char *dir, char *newdir)
 	return (dir);
 }
 
-int		mergefile(t_file **list, t_file *merge)
-{
-	t_file *cpy;
-
-	if (!*list)
-	{
-		*list = merge;
-		return (0);
-	}
-	cpy = *list;
-	while (cpy && cpy->next)
-		cpy = cpy->next;
-	cpy->next = merge;
-	return (1);
-}
-
-int			ft_getls(char *dir, t_file **to_merge, t_ls *data)
+t_file	*ft_getls(char *dir, t_ls *data)
 {
 	DIR				*rep;
 	struct dirent	*readfile;
@@ -70,18 +54,18 @@ int			ft_getls(char *dir, t_file **to_merge, t_ls *data)
 	{
 		if (cpy)
 		{
-			cpy->next = get_info(dir, ft_strdup(readfile->d_name));
+			cpy->next = get_info(dir, ft_strdup(readfile->d_name), 0);
 			cpy = cpy->next;
 		}
 		else
 		{
-			cpy = get_info(dir, ft_strdup(readfile->d_name));
+			cpy = get_info(dir, ft_strdup(readfile->d_name), 0);
 			file = cpy;
 		}
 	}
 	closedir(rep);
 	ft_mergesort(&file, data);
-	return (mergefile(to_merge, file));
+	return (file);
 }
 
 int		process(t_ls *data)
@@ -93,15 +77,9 @@ int		process(t_ls *data)
 		return (0);
 	while (++i < data->nb_dir)
 	{
-		ft_getls(data->dir[i], &data->files[i], data);
+		data->files[i] = ft_getls(data->dir[i], data);
 		if (data->fg_sr)
 			reverse(&data->files[i]);
-	}
-	if (data->alone_files)
-	{
-		ft_mergesort(&data->alone_files, data);
-		if (data->fg_sr)
-			reverse(&data->alone_files);
 	}
 	return (1);
 }

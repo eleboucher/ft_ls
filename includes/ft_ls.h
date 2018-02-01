@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/12 17:17:34 by elebouch          #+#    #+#             */
-/*   Updated: 2018/02/01 13:25:14 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/02/01 23:20:56 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ typedef struct		s_file
 # endif
 
 	char			*path;
-	int				isdir;
+	int				isalone;
 	int				error;
 	struct stat		stat;
 	struct s_file	*inside;
@@ -69,7 +69,6 @@ typedef struct		s_ls
 	int				nb_dir;
 	char			**dir;
 	t_file			**files;
-	t_file			*alone_files;
 }					t_ls;
 
 typedef struct		s_size
@@ -84,15 +83,15 @@ typedef struct		s_size
 
 void				display(t_ls *data);
 int					process(t_ls *data);
-t_file				*get_info(char *dir, char *d_name);
+t_file				*get_info(char *dir, char *d_name, int alonefile);
 char				*joindir(char *dir, char *newdir);
-int					ft_getls(char *dir, t_file **to_merge, t_ls *data);
+t_file				*ft_getls(char *dir,  t_ls *data);
 void				ft_mergesort(t_file **file, t_ls *data);
 void				split(t_file *src, t_file **front, t_file **back);
 t_file				*sorted(t_file *a, t_file *b,
 		int (*f)(t_file *a, t_file *b));
 void				free_ls(t_ls **ls);
-int					process_error(char *dir, int error, t_ls *data);
+t_file				*process_error(char *dir, int error, t_ls *data);
 void				print_type(t_file *file);
 void				print_right(t_file *file);
 void				print_total(t_file *file, int fg_a);
@@ -119,5 +118,4 @@ void				display_file(t_file *file, t_ls *data, int i);
 void				print_acl(t_file *file);
 char				*get_color(t_file *file);
 void				free_file(t_file **files);
-int					mergefile(t_file **list, t_file *merge);
 #endif

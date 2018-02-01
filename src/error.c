@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/25 15:39:07 by elebouch          #+#    #+#             */
-/*   Updated: 2018/02/01 13:23:01 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/02/01 23:21:32 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,8 @@ static char		*get_dir(char **split, char *dir, int size)
 		d = ft_strcleanjoin(d, split[i]);
 	return (d);
 }
-int				process_error(char *dir, int error, t_ls *data)
+
+t_file 	*process_error(char *dir, int error, t_ls *data)
 {
 	char	**file_name;
 	char	*f;
@@ -81,17 +82,18 @@ int				process_error(char *dir, int error, t_ls *data)
 	f = ft_strdup(file_name[i - 1]);
 	d = get_dir(file_name, dir, i);
 	freearr(&file_name);
+	(void) data;
 	if (error == ENOTDIR)
 	{
 		if (i == 1)
-			return (mergefile(&data->alone_files, get_info(".", f)));
+			return (get_info(".", f, 1));
 		else
-			return (mergefile(&data->alone_files, get_info(d, f)));
+			return (get_info(d, f, 1));
 	}
 	if (error == EACCES)
-		return (mergefile(data->files, perm(dir, f)));
+		return (perm(dir, f));
 	if (error == ENOENT)
 		enoent(f);
 	free(f);
-	return (0);
+	return (NULL);
 }

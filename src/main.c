@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/12 17:15:29 by elebouch          #+#    #+#             */
-/*   Updated: 2018/02/01 11:33:47 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/02/01 23:16:51 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,6 @@ void	ft_initializels(t_ls *data)
 	data->error = 0;
 	data->dir = NULL;
 	data->files = NULL;
-	data->alone_files = NULL;
 	data->nb_dir = 0;
 }
 
