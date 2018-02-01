@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/15 16:04:23 by elebouch          #+#    #+#             */
-/*   Updated: 2018/01/31 14:25:23 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/02/01 11:53:42 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void	display_file(t_file *file, t_ls *data, int i)
 					S_ISDIR(file->stat.st_mode) && (data->fg_a ||
 						(!data->fg_a && file->file_name[0] != '.')))
 			{
-				file->inside = ft_getls(file->path, data);
+				ft_getls(file->path, &file->inside, data);
 				if (file->inside)
 				{
 					ft_printf("\n%s:\n", file->path);
@@ -85,14 +85,24 @@ void	display(t_ls *data)
 
 	i = -1;
 	if (data->nb_dir > 1)
+	{
 		ft_quicksortfiles(data->files, 0, data->nb_dir - 1);
+		ft_quicksortchar(data->dir, 0, data->nb_dir - 1);
+	}
+	if (data->alone_files)
+		display_file(data->alone_files, data, i);
 	file = data->files[0];
 	while (++i < data->nb_dir)
 	{
 		file = data->files[i];
+		if (file && i > 0 && data->nb_dir != 1 && (S_ISDIR(file->stat.st_mode) 
+					|| file->error))
+			ft_printf("\n");
 		if (file && data->nb_dir != 1 && (S_ISDIR(file->stat.st_mode) ||
 					file->error))
-			ft_printf("\n%s:\n", file->path);
+			ft_printf("%s:\n", data->dir[i]);
+		if (file && data->nb_dir != 1 && !ft_strcmp(data->dir[i], "."))
+			ft_printf(".:\n");
 		if (file)
 			display_file(file, data, i);
 	}

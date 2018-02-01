@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/25 15:39:07 by elebouch          #+#    #+#             */
-/*   Updated: 2018/01/31 13:50:18 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/02/01 11:44:55 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ static void		enoent(char *f)
 	ft_putstr_fd(": No such file or directory\n", 2);
 }
 
-t_file			*process_error(char *dir, int error)
+int			process_error(char *dir, int error, t_ls *data)
 {
 	char	**file_name;
 	char	*f;
@@ -65,14 +65,14 @@ t_file			*process_error(char *dir, int error)
 	if (error == ENOTDIR)
 	{
 		if (i == 1)
-			return (get_info(".", f));
+			return (mergefile(&data->alone_files, get_info(".", f)));
 		else
-			return (get_info(dir, f));
+			return (mergefile(&data->alone_files, get_info(dir, f)));
 	}
 	if (error == EACCES)
-		return (perm(dir, f));
+		return (mergefile(data->files, perm(dir, f)));
 	if (error == ENOENT)
 		enoent(f);
 	free(f);
-	return (NULL);
+	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/13 15:02:51 by elebouch          #+#    #+#             */
-/*   Updated: 2018/01/31 15:29:51 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/02/01 11:39:49 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,23 @@ char	*joindir(char *dir, char *newdir)
 	return (dir);
 }
 
-t_file	*ft_getls(char *dir, t_ls *data)
+int		mergefile(t_file **list, t_file *merge)
+{
+	t_file *cpy;
+
+	if (!*list)
+	{
+		*list = merge;
+		return (0);
+	}
+	cpy = *list;
+	while (cpy && cpy->next)
+		cpy = cpy->next;
+	cpy->next = merge;
+	return (1);
+}
+
+int			ft_getls(char *dir, t_file **to_merge, t_ls *data)
 {
 	DIR				*rep;
 	struct dirent	*readfile;
@@ -49,7 +65,7 @@ t_file	*ft_getls(char *dir, t_ls *data)
 
 	cpy = NULL;
 	if (!(rep = opendir(dir)))
-		return (process_error(dir, (int)errno));
+		return (process_error(dir, (int)errno, data));
 	while ((readfile = readdir(rep)))
 	{
 		if (cpy)
@@ -65,7 +81,7 @@ t_file	*ft_getls(char *dir, t_ls *data)
 	}
 	closedir(rep);
 	ft_mergesort(&file, data);
-	return (file);
+	return (mergefile(to_merge, file));
 }
 
 int		process(t_ls *data)
@@ -77,7 +93,7 @@ int		process(t_ls *data)
 		return (0);
 	while (++i < data->nb_dir)
 	{
-		data->files[i] = ft_getls(data->dir[i], data);
+		ft_getls(data->dir[i], &data->files[i], data);
 		if (data->fg_sr)
 			reverse(&data->files[i]);
 	}
