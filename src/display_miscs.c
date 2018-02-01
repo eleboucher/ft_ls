@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/29 15:37:22 by elebouch          #+#    #+#             */
-/*   Updated: 2018/01/31 14:23:11 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/02/01 13:26:25 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,11 +51,14 @@ void	print_acl(t_file *file)
 		ft_putchar(' ');
 }
 
-void	display_file_name(t_file *file, t_ls *data)
+void	display_file_name(t_file *file, t_ls *data, int i)
 {
 	if (data->fg_bg)
 		ft_putstr(get_color(file));
-	ft_putstr(file->file_name);
+	if (i == -1)
+		ft_putstr(file->path);
+	else
+		ft_putstr(file->file_name);
 	if (data->fg_bg)
 		ft_putstr(RESET);
 	if (!(S_ISLNK(file->stat.st_mode) && data->fg_l))

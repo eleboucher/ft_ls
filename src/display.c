@@ -6,23 +6,23 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/15 16:04:23 by elebouch          #+#    #+#             */
-/*   Updated: 2018/02/01 11:53:42 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/02/01 13:26:55 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-void	display_small(t_file *file, t_ls *data)
+void	display_small(t_file *file, t_ls *data, int i)
 {
 	while (file)
 	{
 		if (!(!data->fg_a && file->file_name[0] == '.'))
-			display_file_name(file, data);
+			display_file_name(file, data, i);
 		file = file->next;
 	}
 }
 
-void	display_long(t_file *file, t_ls *data)
+void	display_long(t_file *file, t_ls *data, int i)
 {
 	t_size size;
 
@@ -44,7 +44,7 @@ void	display_long(t_file *file, t_ls *data)
 				putpadnbr((size_t)file->stat.st_size, size.size, 0);
 			print_date(file);
 			ft_putchar(' ');
-			display_file_name(file, data);
+			display_file_name(file, data, i);
 		}
 		file = file->next;
 	}
@@ -56,8 +56,8 @@ void	display_file(t_file *file, t_ls *data, int i)
 		ft_putstr_fd(file->file_name, 2);
 	else
 	{
-		(!data->fg_l) ? display_small(file, data) :
-			display_long(file, data);
+		(!data->fg_l) ? display_small(file, data, i) :
+			display_long(file, data, i);
 	}
 	if (data->fg_br)
 		while (file)

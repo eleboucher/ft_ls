@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/25 15:39:07 by elebouch          #+#    #+#             */
-/*   Updated: 2018/02/01 11:44:55 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/02/01 13:23:01 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,10 +49,28 @@ static void		enoent(char *f)
 	ft_putstr_fd(": No such file or directory\n", 2);
 }
 
-int			process_error(char *dir, int error, t_ls *data)
+static char		*get_dir(char **split, char *dir, int size)
+{
+	char	*d;
+	int		i;
+
+	if (dir[0] == '/')
+	{
+		d = ft_strdup("/");
+		d = ft_strcleanjoin(d, split[0]);
+	}
+	else
+		d = ft_strdup(split[0]);
+	i = 0;
+	while (++i < size - 1)
+		d = ft_strcleanjoin(d, split[i]);
+	return (d);
+}
+int				process_error(char *dir, int error, t_ls *data)
 {
 	char	**file_name;
 	char	*f;
+	char 	*d;
 	int		i;
 
 	file_name = (dir && *dir) ? ft_strsplit(dir, '/') :
@@ -61,13 +79,14 @@ int			process_error(char *dir, int error, t_ls *data)
 	while (file_name[i])
 		++i;
 	f = ft_strdup(file_name[i - 1]);
+	d = get_dir(file_name, dir, i);
 	freearr(&file_name);
 	if (error == ENOTDIR)
 	{
 		if (i == 1)
 			return (mergefile(&data->alone_files, get_info(".", f)));
 		else
-			return (mergefile(&data->alone_files, get_info(dir, f)));
+			return (mergefile(&data->alone_files, get_info(d, f)));
 	}
 	if (error == EACCES)
 		return (mergefile(data->files, perm(dir, f)));
