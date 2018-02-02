@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/30 07:15:49 by elebouch          #+#    #+#             */
-/*   Updated: 2018/02/02 18:01:26 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/02/02 18:10:18 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,4 +66,24 @@ int	 sortdirarr(t_file ***arr, int n, int (*f)(t_file *a, t_file *b))
 		files[j + 1] = key;
 	}
 	return (n);
+}
+
+void	reverse_arr(t_file ***arr, int size)
+{
+	int		i;
+	int		j;
+	t_file	*tmp;
+	t_file	**files;
+
+	i = size - 1;
+	j = 0;
+	files = *arr;
+	while (i > j)
+	{
+		tmp = files[i];
+		files[i] = files[j];
+		files[j] = tmp;
+		i--;
+		j++;
+	}
 }

@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/12 17:17:34 by elebouch          #+#    #+#             */
-/*   Updated: 2018/02/02 18:01:48 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/02/02 18:08:50 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,4 +124,5 @@ void				free_file(t_file **files);
 int					mergefile(t_file **list, t_file *merge);
 int					ascii_sort(t_file *a, t_file *b);
 int					time_sort(t_file *a, t_file *b);
+void				reverse_arr(t_file ***arr, int size);
 #endif

@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/15 16:04:23 by elebouch          #+#    #+#             */
-/*   Updated: 2018/02/02 17:58:47 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/02/02 18:10:55 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,8 @@ void	display(t_ls *data)
 	}
 	if (data->alone_files)
 		display_file(data->alone_files, data, i);
+	if (data->nb_dir > 0 && data->fg_sr)
+		reverse_arr(&data->files, data->nb_dir);
 	while (++i < data->nb_dir)
 	{
 		file = data->files[i];
