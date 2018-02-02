@@ -6,56 +6,64 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/30 07:15:49 by elebouch          #+#    #+#             */
-/*   Updated: 2018/02/02 15:47:00 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/02/02 17:12:32 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-static void	swapfiles(t_file **files, int a, int b)
-{
-	t_file *tmp;
 
-	if (!files)
-		return ;
-	tmp = files[a];
-	files[a] = files[b];
-	files[b] = tmp;
+static t_file	*get_folder(t_file *file)
+{
+	while (file && ft_strcmp(file->file_name, "."))
+		file = file->next;
+	return (file);
 }
 
-static int	partition(t_file **files, int begin, int end)
+static int	pushnullatend(t_file ***arr, int n)
 {
-	t_file	*pivot;
 	int		i;
+	int		count;
+	int		nbdir;
+	t_file	**files;
+
+	count = 0;
+	nbdir = 0;
+	i = -1;
+	files = *arr;
+	while (++i < n)
+		if (files[i])
+		{
+			files[count++] = files[i];
+			nbdir++;
+		}
+	while (count < n)
+		arr[count++] = NULL;
+	return (nbdir);
+}
+
+int	 sortdirarr(t_file ***arr, int n, int (*f)(t_file *a, t_file *b))
+{
+	t_file **files;
+	int		i;
+	t_file 	*key;
 	int		j;
 
-	i = begin - 1;
-	j = begin;
-	pivot = files[end];
-	while (j <= end - 1)
+	if (!arr)
+		return (0);
+	n = pushnullatend(arr, n);
+	files = *arr;
+	i = 0;
+	while (++i < n)
 	{
-		if (files[j] && pivot && ft_strcmp(files[j]->dir, pivot->dir) < 0)
+		key = get_folder(files[i]);
+		j = i - 1;
+		while (j >= 0 && (*f)(get_folder(files[j]), key) > 0)
 		{
-			i++;
-			swapfiles(files, i, j);
+			files[j + 1] = files[j];
+			j = j - 1;
 		}
-		j++;
+		files[j + 1] = key;
 	}
-	swapfiles(files, (i + 1), end);
-	return (i + 1);
-}
-
-void		ft_quicksortfiles(t_file **files, int begin, int end)
-{
-	int p;
-
-	p = 0;
-	if (!files || !*files)
-		return ;
-	if (begin < end)
-	{
-		p = partition(files, begin, end);
-		ft_quicksortfiles(files, begin, p - 1);
-		ft_quicksortfiles(files, p + 1, end);
-	}
+	return (n);
 }

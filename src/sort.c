@@ -6,18 +6,18 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/24 20:57:53 by elebouch          #+#    #+#             */
-/*   Updated: 2018/02/02 15:55:33 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/02/02 17:13:26 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-static int	ascii_sort(t_file *a, t_file *b)
+int			ascii_sort(t_file *a, t_file *b)
 {
 	return (ft_strcmp(a->path, b->path));
 }
 
-static int	time_sort(t_file *a, t_file *b)
+int			time_sort(t_file *a, t_file *b)
 {
 	if (a->stat.st_mtimespec.tv_sec == b->stat.st_mtimespec.tv_sec)
 		return (ft_strcmp(a->path, b->path));

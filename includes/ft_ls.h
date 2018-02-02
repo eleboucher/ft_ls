@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/12 17:17:34 by elebouch          #+#    #+#             */
-/*   Updated: 2018/02/02 15:43:34 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/02/02 16:34:55 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,8 @@ void				print_majmin(t_file *file, t_size size);
 void				display_file_name(t_file *file, t_ls *data, int i);
 void				display_link(t_file *file);
 void				reverse(t_file **file);
-void				ft_quicksortfiles(t_file **files, int begin, int end);
+int					sortdirarr(t_file ***arr, int n,
+		int (*f)(t_file *a, t_file *b));
 int					ft_getdir(int argc, char **argv, int i, t_ls *data);
 int					ft_getoption(char *str, t_ls *data);
 int					ft_getargs(int argc, char **argv, t_ls *data);
@@ -122,4 +123,6 @@ char				*get_color(t_file *file);
 void				free_file(t_file **files);
 int					mergefile(t_file **list, t_file *merge);
 void				display_dir(t_file *file);
+int					ascii_sort(t_file *a, t_file *b);
+int					time_sort(t_file *a, t_file *b);
 #endif
