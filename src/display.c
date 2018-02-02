@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/15 16:04:23 by elebouch          #+#    #+#             */
-/*   Updated: 2018/02/02 17:15:47 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/02/02 17:58:47 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,20 +93,15 @@ void	display(t_ls *data)
 	}
 	if (data->alone_files)
 		display_file(data->alone_files, data, i);
-	while (++i < data->nb_dir + 1)
+	while (++i < data->nb_dir)
 	{
-
 		file = data->files[i];
-		printf("%s\n", file->dir);
-		if (i > 0 && data->nb_dir != 1 && (S_ISDIR(file->stat.st_mode) 
-					|| file->error))
+		if (data->nb_dir > 1)
 			ft_printf("\n");
-		if (data->nb_dir != 1 && (S_ISDIR(file->stat.st_mode) ||
-					file->error))
-			display_dir(file);
-		if (data->nb_dir != 1 && !ft_strcmp(file->dir, "."))
+		if (data->nb_dir > 1 && !ft_strcmp(file->dir, "."))
 			ft_printf(".:\n");
-		if (file)
-			display_file(file, data, i);
+		else if (data->nb_dir > 1)
+			printf("%s:\n", file->dir);
+		display_file(file, data, i);
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/30 07:15:49 by elebouch          #+#    #+#             */
-/*   Updated: 2018/02/02 17:12:32 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/02/02 18:01:26 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,14 +31,14 @@ static int	pushnullatend(t_file ***arr, int n)
 	nbdir = 0;
 	i = -1;
 	files = *arr;
-	while (++i < n)
+	while (++i <= n)
 		if (files[i])
 		{
 			files[count++] = files[i];
 			nbdir++;
 		}
-	while (count < n)
-		arr[count++] = NULL;
+	while (count <= n)
+		files[count++] = NULL;
 	return (nbdir);
 }
 

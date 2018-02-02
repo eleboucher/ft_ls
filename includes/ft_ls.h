@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/12 17:17:34 by elebouch          #+#    #+#             */
-/*   Updated: 2018/02/02 16:34:55 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/02/02 18:01:48 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,7 +122,6 @@ void				print_acl(t_file *file);
 char				*get_color(t_file *file);
 void				free_file(t_file **files);
 int					mergefile(t_file **list, t_file *merge);
-void				display_dir(t_file *file);
 int					ascii_sort(t_file *a, t_file *b);
 int					time_sort(t_file *a, t_file *b);
 #endif
