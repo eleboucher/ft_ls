@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/12 17:17:34 by elebouch          #+#    #+#             */
-/*   Updated: 2018/02/01 13:25:14 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/02/02 15:43:34 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ typedef struct		s_file
 	char			*path;
 	int				isdir;
 	int				error;
+	char			*dir;
 	struct stat		stat;
 	struct s_file	*inside;
 	struct s_file	*next;
@@ -120,4 +121,5 @@ void				print_acl(t_file *file);
 char				*get_color(t_file *file);
 void				free_file(t_file **files);
 int					mergefile(t_file **list, t_file *merge);
+void				display_dir(t_file *file);
 #endif
