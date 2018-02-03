@@ -6,7 +6,7 @@
 #    By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/01/23 12:59:48 by elebouch          #+#    #+#              #
-#    Updated: 2018/02/02 18:01:54 by elebouch         ###   ########.fr        #
+#    Updated: 2018/02/03 13:27:38 by elebouch         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@ OBJ_DIR = ./obj/
 INCLUDE = -I libft/includes/ -I includes/
 
 CC = gcc
-CFLAGS = -Wall -Werror -Wextra $(INCLUDE) -g3
+CFLAGS = -Wall -Werror -Wextra $(INCLUDE) -g 
 
 SRC= \
 	main.c \
@@ -28,6 +28,7 @@ SRC= \
 	sort.c \
 	free.c \
 	utils.c \
+	tfile_utils.c\
 	putpad.c \
 	reverse.c \
 	sortarr.c \

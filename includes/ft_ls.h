@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/12 17:17:34 by elebouch          #+#    #+#             */
-/*   Updated: 2018/02/02 18:08:50 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/02/03 12:09:12 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,13 +87,13 @@ void				display(t_ls *data);
 int					process(t_ls *data);
 t_file				*get_info(char *dir, char *d_name);
 char				*joindir(char *dir, char *newdir);
-int					ft_getls(char *dir, t_file **to_merge, t_ls *data);
+t_file          	*ft_getls(char *dir, t_ls *data);
 void				ft_mergesort(t_file **file, t_ls *data);
 void				split(t_file *src, t_file **front, t_file **back);
 t_file				*sorted(t_file *a, t_file *b,
 		int (*f)(t_file *a, t_file *b));
 void				free_ls(t_ls **ls);
-int					process_error(char *dir, int error, t_ls *data);
+t_file          	*process_error(char *dir, int error, t_ls *data);
 void				print_type(t_file *file);
 void				print_right(t_file *file);
 void				print_total(t_file *file, int fg_a);

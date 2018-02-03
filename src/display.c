@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/15 16:04:23 by elebouch          #+#    #+#             */
-/*   Updated: 2018/02/02 18:10:55 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/02/03 13:37:29 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void	display_file(t_file *file, t_ls *data, int i)
 					S_ISDIR(file->stat.st_mode) && (data->fg_a ||
 						(!data->fg_a && file->file_name[0] != '.')))
 			{
-				ft_getls(file->path, &file->inside, data);
+				file->inside = ft_getls(file->path, data);
 				if (file->inside)
 				{
 					ft_printf("\n%s:\n", file->path);
@@ -95,10 +95,11 @@ void	display(t_ls *data)
 		display_file(data->alone_files, data, i);
 	if (data->nb_dir > 0 && data->fg_sr)
 		reverse_arr(&data->files, data->nb_dir);
+	printf("ASDF COUNT :::: %d\n", data->nb_dir);
 	while (++i < data->nb_dir)
 	{
 		file = data->files[i];
-		if (data->nb_dir > 1)
+		if (i > 0 && data->nb_dir > 1)
 			ft_printf("\n");
 		if (data->nb_dir > 1 && !ft_strcmp(file->dir, "."))
 			ft_printf(".:\n");
