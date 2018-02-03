@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/29 15:37:22 by elebouch          #+#    #+#             */
-/*   Updated: 2018/02/02 13:02:18 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/02/03 15:56:49 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,14 +53,12 @@ void	print_acl(t_file *file)
 
 void	display_file_name(t_file *file, t_ls *data, int i)
 {
-	if (data->fg_bg)
-		ft_putstr(get_color(file));
-	if (i == -1)
-		ft_putstr(file->path);
+	if (i == -1 && !(file->path[0] == '.' && file->path[0] == '/'))
+		ft_printf("%s%s%s", (data->fg_bg) ? get_color(file) : "",
+				file->path, (data->fg_bg) ? RESET: "");
 	else
-		ft_putstr(file->file_name);
-	if (data->fg_bg)
-		ft_putstr(RESET);
+		ft_printf("%s%s%s", ((data->fg_bg) ? get_color(file) : ""),
+				file->file_name, ((data->fg_bg) ? RESET: ""));
 	if (!(S_ISLNK(file->stat.st_mode) && data->fg_l))
 		ft_putchar('\n');
 	else
@@ -74,8 +72,7 @@ void	display_link(t_file *file)
 	ft_putstr(" -> ");
 	ft_bzero(&link_name, 1024);
 	readlink(file->path, link_name, 1024);
-	ft_putstr(link_name);
-	ft_putchar('\n');
+	printf("%s\n", link_name);
 }
 
 void	print_majmin(t_file *file, t_size size)

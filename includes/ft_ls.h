@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/12 17:17:34 by elebouch          #+#    #+#             */
-/*   Updated: 2018/02/03 12:09:12 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/02/03 14:53:06 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ typedef struct		s_file
 # endif
 
 	char			*path;
-	int				isdir;
 	int				error;
 	char			*dir;
 	struct stat		stat;

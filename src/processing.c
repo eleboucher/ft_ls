@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/13 15:02:51 by elebouch          #+#    #+#             */
-/*   Updated: 2018/02/03 13:41:15 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/02/03 14:55:09 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ t_file	*get_info(char *dir, char *d_name)
 	file->path = joindir(dir, d_name);
 	lstat(file->path, &file->stat);
 	file->dir = ft_strdup(dir);
-	file->isdir = 0;
 	file->next = NULL;
 	file->error = 0;
 	file->inside = NULL;
@@ -66,8 +65,6 @@ t_file		*ft_getls(char *dir, t_ls *data)
 	}
 	closedir(rep);
 	ft_mergesort(&file, data);
-	
-	
 	return (file);
 }
 
