@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/15 16:04:23 by elebouch          #+#    #+#             */
-/*   Updated: 2018/02/04 13:59:23 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/02/04 14:13:23 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ void	display(t_ls *data)
 		reverse_arr(&data->files, data->nb_dir);
 	while (++i < data->nb_dir)
 	{
-		if (data->files[i] && data->nb_dir > 1)
+		if (data->files[i] && data->nb_dir > 1 && (i > 0 || data->alone_files))
 			ft_printf("\n");
 		if (data->files[i] && data->nb_dir > 1 &&
 				!ft_strcmp(data->files[i]->dir, "."))
