@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/29 09:47:35 by elebouch          #+#    #+#             */
-/*   Updated: 2018/02/04 10:15:31 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/02/04 10:34:01 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	print_type(t_file *file, int fg_pls)
 
 void	print_right(t_file *file, int fg_pls)
 {
-	char	ret[10];
+	char	ret[9];
 	mode_t	mode;
 
 	mode = file->stat.st_mode;
@@ -51,7 +51,12 @@ void	print_right(t_file *file, int fg_pls)
 	ret[6] = (mode & S_IROTH) ? 'r' : '-';
 	ret[7] = (mode & S_IWOTH) ? 'w' : '-';
 	ret[8] = (mode & S_IXOTH) ? 'x' : '-';
-	ret[9] = 0;
+	if (mode & S_ISUID)
+		ret[2] = (ret[2] == '-') ? 'S' : 's';
+	if (mode & S_ISGID)
+		ret[5] = (ret[5] == '-') ? 'S': 's';
+	if (mode & S_ISVTX)
+		ret[8] = (ret[8] == '-') ? 'T' : 't';
 	write(1, ret, 9);
 	if (fg_pls)
 		print_acl(file);
