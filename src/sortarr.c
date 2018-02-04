@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/30 07:15:49 by elebouch          #+#    #+#             */
-/*   Updated: 2018/02/03 14:30:26 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/02/04 14:51:55 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 static t_file	*get_folder(t_file *file)
 {
-	while (file && ft_strcmp(file->file_name, "."))
+	while (file && !file->error &&ft_strcmp(file->file_name, "."))
 		file = file->next;
 	return (file);
 }

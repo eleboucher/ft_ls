@@ -6,21 +6,21 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/29 17:37:03 by elebouch          #+#    #+#             */
-/*   Updated: 2018/02/03 14:25:06 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/02/04 14:40:32 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-void	reverse(t_file **file)
+t_file	*reverse(t_file *file)
 {
 	t_file *cur;
 	t_file *prev;
 	t_file *next;
 
 	if (!file)
-		return ;
-	cur = *file;
+		return (NULL);
+	cur = file;
 	prev = NULL;
 	while (cur)
 	{
@@ -29,5 +29,5 @@ void	reverse(t_file **file)
 		prev = cur;
 		cur = next;
 	}
-	*file = prev;
+	return (prev);
 }

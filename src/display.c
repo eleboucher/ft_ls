@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/15 16:04:23 by elebouch          #+#    #+#             */
-/*   Updated: 2018/02/04 14:13:23 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/02/04 14:21:07 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ void	display(t_ls *data)
 				!ft_strcmp(data->files[i]->dir, "."))
 			ft_printf(".:\n");
 		else if (data->files[i] && data->nb_dir > 1)
-			printf("%s:\n", data->files[i]->dir);
+			ft_printf("%s:\n", data->files[i]->dir);
 		if (data->files[i])
 			display_file(data->files[i], data, i);
 	}

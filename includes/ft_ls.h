@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/12 17:17:34 by elebouch          #+#    #+#             */
-/*   Updated: 2018/02/04 10:11:01 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/02/04 14:39:22 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ void				print_date(t_file *file);
 void				print_majmin(t_file *file, t_size size);
 void				display_file_name(t_file *file, t_ls *data, int i);
 void				display_link(t_file *file);
-void				reverse(t_file **file);
+t_file				*reverse(t_file *file);
 int					sortdirarr(t_file ***arr, int n,
 		int (*f)(t_file *a, t_file *b));
 int					ft_getdir(int argc, char **argv, int i, t_ls *data);

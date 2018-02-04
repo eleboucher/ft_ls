@@ -6,7 +6,7 @@
 #    By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/01/23 12:59:48 by elebouch          #+#    #+#              #
-#    Updated: 2018/02/04 14:02:44 by elebouch         ###   ########.fr        #
+#    Updated: 2018/02/04 14:41:17 by elebouch         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@ OBJ_DIR = ./obj/
 INCLUDE = -I libft/includes/ -I includes/
 
 CC = gcc
-CFLAGS = -Wall -Werror -Wextra $(INCLUDE) 
+CFLAGS = -Wall -Werror -Wextra $(INCLUDE) -g
 
 SRC= \
 	main.c \
