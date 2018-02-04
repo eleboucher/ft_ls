@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/12 17:17:34 by elebouch          #+#    #+#             */
-/*   Updated: 2018/02/03 14:53:06 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/02/04 10:11:01 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,16 +28,25 @@
 # include "libft.h"
 # include "ft_printf.h"
 
-# define RED "\x1B[31m"
-# define GRN "\x1B[32m"
-# define YEL "\x1B[33m"
-# define BLU "\x1B[34m"
-# define MAG "\x1B[35m"
-# define CYN "\x1B[36m"
-# define WHT "\x1B[37m"
-# define BOLCYN "\x1B[1;96m"
-# define RESET "\x1B[0m"
-# define DFT "\x1B[39m"
+# define RED		"\x1B[31m"
+# define GRN		"\x1B[32m"
+# define YEL		"\x1B[33m"
+# define BLU		"\x1B[34m"
+# define MAG		"\x1B[35m"
+# define CYN		"\x1B[36m"
+# define WHT		"\x1B[37m"
+# define BOLCYN		"\x1B[1;96m"
+# define RESET		"\x1B[0m"
+# define DFT		"\x1B[39m"
+
+# define FG_L		(1 << 0)
+# define FG_A		(1 << 1)
+# define FG_BR		(1 << 2)
+# define FG_SR		(1 << 3)
+# define FG_T		(1 << 4)
+# define FG_BG		(1 << 5)
+# define FG_PLS		(1 << 6)
+# define FG_OPTS	"laRrtG+"
 
 typedef struct		s_file
 {
@@ -59,12 +68,7 @@ typedef struct		s_file
 
 typedef struct		s_ls
 {
-	int				fg_l;
-	int				fg_a;
-	int				fg_br;
-	int				fg_sr;
-	int				fg_t;
-	int				fg_bg;
+	int				opts;
 	int				error;
 	int				nb_dir;
 	char			**dir;
@@ -93,8 +97,8 @@ t_file				*sorted(t_file *a, t_file *b,
 		int (*f)(t_file *a, t_file *b));
 void				free_ls(t_ls **ls);
 t_file          	*process_error(char *dir, int error, t_ls *data);
-void				print_type(t_file *file);
-void				print_right(t_file *file);
+void				print_type(t_file *file, int fg_pls);
+void				print_right(t_file *file, int fg_pls);
 void				print_total(t_file *file, int fg_a);
 void				print_guid(t_file *file, t_size size);
 void				maxsize_guid(t_file *file, t_size *size, int fg_a);
@@ -111,7 +115,7 @@ void				reverse(t_file **file);
 int					sortdirarr(t_file ***arr, int n,
 		int (*f)(t_file *a, t_file *b));
 int					ft_getdir(int argc, char **argv, int i, t_ls *data);
-int					ft_getoption(char *str, t_ls *data);
+int					ft_getoption(char c);
 int					ft_getargs(int argc, char **argv, t_ls *data);
 void				ft_initializels(t_ls *data);
 void				display_small(t_file *file, t_ls *data, int i);

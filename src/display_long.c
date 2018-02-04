@@ -6,13 +6,13 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/29 09:47:35 by elebouch          #+#    #+#             */
-/*   Updated: 2018/02/01 12:54:42 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/02/04 10:15:31 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-void	print_type(t_file *file)
+void	print_type(t_file *file, int fg_pls)
 {
 	char	c;
 	mode_t	mode;
@@ -33,10 +33,10 @@ void	print_type(t_file *file)
 	else
 		c = '-';
 	ft_putchar(c);
-	print_right(file);
+	print_right(file, fg_pls);
 }
 
-void	print_right(t_file *file)
+void	print_right(t_file *file, int fg_pls)
 {
 	char	ret[10];
 	mode_t	mode;
@@ -53,7 +53,10 @@ void	print_right(t_file *file)
 	ret[8] = (mode & S_IXOTH) ? 'x' : '-';
 	ret[9] = 0;
 	write(1, ret, 9);
-	print_acl(file);
+	if (fg_pls)
+		print_acl(file);
+	else
+		ft_putchar(' ');
 }
 
 void	print_total(t_file *file, int fg_a)
@@ -109,4 +112,5 @@ void	print_date(t_file *file)
 	}
 	else
 		ft_putnstr(&(str[11]), 5);
+	ft_putchar(' ');
 }

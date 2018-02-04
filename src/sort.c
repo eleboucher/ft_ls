@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/24 20:57:53 by elebouch          #+#    #+#             */
-/*   Updated: 2018/02/02 17:13:26 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/02/04 09:57:51 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void		ft_mergesort(t_file **file, t_ls *data)
 	split(head, &a, &b);
 	ft_mergesort(&a, data);
 	ft_mergesort(&b, data);
-	if (!data->fg_t)
+	if (!(data->opts & FG_T))
 		*file = sorted(a, b, &ascii_sort);
 	else
 		*file = sorted(a, b, &time_sort);

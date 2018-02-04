@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/15 16:04:23 by elebouch          #+#    #+#             */
-/*   Updated: 2018/02/03 14:57:35 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/02/04 10:14:41 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	display_small(t_file *file, t_ls *data, int i)
 {
 	while (file)
 	{
-		if (!(!data->fg_a && file->file_name[0] == '.'))
+		if (!(!(data->opts & FG_A) && file->file_name[0] == '.'))
 			display_file_name(file, data, i);
 		file = file->next;
 	}
@@ -27,15 +27,15 @@ void	display_long(t_file *file, t_ls *data, int i)
 	t_size size;
 
 	if (S_ISDIR(file->stat.st_mode))
-		print_total(file, data->fg_a);
+		print_total(file, data->opts & FG_A);
 	init_size(&size);
-	maxsize_guid(file, &size, data->fg_a);
-	max_nlinknsize(file, &size, data->fg_a);
+	maxsize_guid(file, &size, data->opts & FG_A);
+	max_nlinknsize(file, &size, data->opts & FG_A);
 	while (file)
 	{
-		if (!(!data->fg_a && file->file_name[0] == '.'))
+		if (!(!(data->opts & FG_A) && file->file_name[0] == '.'))
 		{
-			print_type(file);
+			print_type(file, data->opts & FG_PLS);
 			putpadnbr(file->stat.st_nlink, size.nlink, 0);
 			print_guid(file, size);
 			if (S_ISCHR(file->stat.st_mode) || S_ISBLK(file->stat.st_mode))
@@ -43,7 +43,6 @@ void	display_long(t_file *file, t_ls *data, int i)
 			else
 				putpadnbr((size_t)file->stat.st_size, size.size, 0);
 			print_date(file);
-			ft_putchar(' ');
 			display_file_name(file, data, i);
 		}
 		file = file->next;
@@ -56,16 +55,16 @@ void	display_file(t_file *file, t_ls *data, int i)
 		ft_putstr_fd(file->file_name, 2);
 	else
 	{
-		(!data->fg_l) ? display_small(file, data, i) :
+		(!(data->opts & FG_L)) ? display_small(file, data, i) :
 			display_long(file, data, i);
 	}
-	if (data->fg_br)
+	if (data->opts & FG_BR)
 		while (file)
 		{
 			if (ft_strcmp(file->file_name, ".") != 0
 						&& ft_strcmp(file->file_name, "..") != 0 &&
 					S_ISDIR(file->stat.st_mode) &&
-					!(!data->fg_a && file->file_name[0] == '.') )
+					!(!(data->opts & FG_A) && file->file_name[0] == '.') )
 			{
 				file->inside = ft_getls(file->path, data);
 				if (file->inside && !file->inside->error)
@@ -86,14 +85,14 @@ void	display(t_ls *data)
 	i = -1;
 	if (data->nb_dir > 1)
 	{
-		if (!data->fg_t)
+		if (!(data->opts & FG_T))
 			data->nb_dir = sortdirarr(&data->files, data->nb_dir - 1, &ascii_sort); 
 		else
 			data->nb_dir = sortdirarr(&data->files, data->nb_dir - 1, &time_sort) ;
 	}
 	if (data->alone_files)
 		display_file(data->alone_files, data, i);
-	if (data->nb_dir > 1 && data->fg_sr)
+	if (data->nb_dir > 1 && data->opts & FG_SR)
 		reverse_arr(&data->files, data->nb_dir);
 	while (++i < data->nb_dir)
 	{

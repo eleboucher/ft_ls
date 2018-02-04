@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/29 15:37:22 by elebouch          #+#    #+#             */
-/*   Updated: 2018/02/03 15:56:49 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/02/04 10:18:52 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,13 +53,16 @@ void	print_acl(t_file *file)
 
 void	display_file_name(t_file *file, t_ls *data, int i)
 {
+	int color;
+
+	color = (data->opts & FG_BG);
 	if (i == -1 && !(file->path[0] == '.' && file->path[0] == '/'))
-		ft_printf("%s%s%s", (data->fg_bg) ? get_color(file) : "",
-				file->path, (data->fg_bg) ? RESET: "");
+		ft_printf("%s%s%s", (color) ? get_color(file) : "",
+				file->path, (color) ? RESET: "");
 	else
-		ft_printf("%s%s%s", ((data->fg_bg) ? get_color(file) : ""),
-				file->file_name, ((data->fg_bg) ? RESET: ""));
-	if (!(S_ISLNK(file->stat.st_mode) && data->fg_l))
+		ft_printf("%s%s%s", ((color) ? get_color(file) : ""),
+				file->file_name, ((color) ? RESET: ""));
+	if (!(S_ISLNK(file->stat.st_mode) && (data->opts & FG_L)))
 		ft_putchar('\n');
 	else
 		display_link(file);
@@ -72,7 +75,7 @@ void	display_link(t_file *file)
 	ft_putstr(" -> ");
 	ft_bzero(&link_name, 1024);
 	readlink(file->path, link_name, 1024);
-	printf("%s\n", link_name);
+	ft_printf("%s\n", link_name);
 }
 
 void	print_majmin(t_file *file, t_size size)

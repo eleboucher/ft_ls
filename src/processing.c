@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/13 15:02:51 by elebouch          #+#    #+#             */
-/*   Updated: 2018/02/03 14:55:09 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/02/04 09:57:23 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,13 +79,13 @@ int		process(t_ls *data)
 	while (++i < data->nb_dir)
 	{
 		data->files[i] = ft_getls(data->dir[i], data);
-		if (data->fg_sr)
+		if (data->opts & FG_SR)
     		reverse(&data->files[i]);
 	}
 	if (data->alone_files)
 	{
 		ft_mergesort(&data->alone_files, data);
-		if (data->fg_sr)
+		if (data->opts & FG_SR)
 			reverse(&data->alone_files);
 	}
 	return (1);

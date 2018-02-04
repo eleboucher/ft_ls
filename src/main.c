@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/12 17:15:29 by elebouch          #+#    #+#             */
-/*   Updated: 2018/02/03 13:41:22 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/02/04 10:07:01 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,41 +39,27 @@ int		ft_getdir(int argc, char **argv, int i, t_ls *data)
 	return (1);
 }
 
-int		ft_getoption(char *str, t_ls *data)
+int		ft_getoption(char c)
 {
-	while (*str && !data->error)
-	{
-		if (*str == 'l')
-			data->fg_l = 1;
-		else if (*str == 'a')
-			data->fg_a = 1;
-		else if (*str == 'R')
-			data->fg_br = 1;
-		else if (*str == 'r')
-			data->fg_sr = 1;
-		else if (*str == 't')
-			data->fg_t = 1;
-		else if (*str == 'G')
-			data->fg_bg = 1;
-		else
-			data->error = 1;
-		str++;
-	}
-	if (data->error)
-	{
-		ft_printf("ft_ls: illegal option -- %c\n", *(str - 1));
-		return (0);
-	}
-	return (1);
+	int i;
+
+	i = -1;
+	while (++i < (int)ft_strlen(FG_OPTS))
+		if (FG_OPTS[i] == c)
+			return (1 << i);
+	return (0);
 }
 
 int		ft_getargs(int argc, char **argv, t_ls *data)
 {
 	int i;
+	int flags;
+	int j;
 
 	i = 0;
 	while (++i < argc)
 	{
+		j = 0;
 		if (argv[i][0] && argv[i][0] == '-')
 		{
 			if (!ft_strcmp(argv[i], "--"))
@@ -81,8 +67,12 @@ int		ft_getargs(int argc, char **argv, t_ls *data)
 				i++;
 				break ;
 			}
-			if (!(ft_getoption(argv[i] + 1, data)))
-				return (-1);
+			while (argv[i][++j])
+			{
+				if (!(flags = ft_getoption(argv[i][j])))
+					return ((int)(data->error = argv[i][j]) );
+				data->opts |= flags;
+			}
 		}
 		else
 			break ;
@@ -94,12 +84,7 @@ int		ft_getargs(int argc, char **argv, t_ls *data)
 
 void	ft_initializels(t_ls *data)
 {
-	data->fg_l = 0;
-	data->fg_sr = 0;
-	data->fg_br = 0;
-	data->fg_a = 0;
-	data->fg_t = 0;
-	data->fg_bg = 0;
+	data->opts = 0;
 	data->error = 0;
 	data->dir = NULL;
 	data->files = NULL;
@@ -120,10 +105,14 @@ int		main(int argc, char **argv)
 		free(data);
 		exit(EXIT_FAILURE);
 	}
-	else if (ret == -1)
+	if (data->error)
 	{
-		free(data);
-		ft_printf("usage: ft_ls [-aRrtlG] [file ...]\n");
+		write(2 , "ft_ls: illegal option -- ", 25);
+		ft_putchar_fd(data->error, 2);
+		ft_putchar_fd('\n', 2);
+		write(2, "usage: ft_ls [-", 15);
+		ft_putstr_fd(FG_OPTS, 2);
+		write(2, "] [file ...]\n", 13);
 		exit(EXIT_FAILURE);
 	}
 	process(data);

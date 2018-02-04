@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/25 15:39:07 by elebouch          #+#    #+#             */
-/*   Updated: 2018/02/03 14:54:33 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/02/04 09:22:13 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ static t_file	*perm(char *dir, char *file_name)
 	if (!(file = malloc(sizeof(t_file))))
 		return (NULL);
 	file->error = 1;
+	file->dir = ft_strdup(dir);
 	file->path = ft_strdup(dir);
 	ft_strcpy(file->file_name, str);
 	free(str);
