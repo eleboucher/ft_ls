@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/29 15:37:22 by elebouch          #+#    #+#             */
-/*   Updated: 2018/02/04 14:10:30 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/02/04 15:05:48 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,11 +38,8 @@ void	print_acl(t_file *file)
 
 	t = NULL;
 	if (listxattr(file->path, NULL, 0, XATTR_NOFOLLOW))
-	{
 		ft_putchar('@');
-		return ;
-	}
-	if ((t = acl_get_file(file->path, ACL_TYPE_EXTENDED)))
+	else if ((t = acl_get_file(file->path, ACL_TYPE_EXTENDED)))
 	{
 		ft_putchar('+');
 		acl_free((void*)t);
