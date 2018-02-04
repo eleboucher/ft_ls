@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/25 15:39:07 by elebouch          #+#    #+#             */
-/*   Updated: 2018/02/04 09:22:13 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/02/04 13:58:08 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,9 +98,13 @@ t_file			*process_error(char *dir, int error, t_ls *data)
 		return (NULL);
 	}
 	if (error == EACCES)
+	{
+		free(d);
 		return (perm(dir, f));
+	}
 	if (error == ENOENT)
 		enoent(f);
+	free(d);
 	free(f);
 	return (0);
 }

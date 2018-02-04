@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/25 11:14:15 by elebouch          #+#    #+#             */
-/*   Updated: 2018/02/03 13:45:49 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/02/04 14:01:25 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	free_file(t_file **files)
 		tmp = file->next;
 		free(file->path);
 		free(file->dir);
-		if (file->inside != NULL)
+		if (file->inside)
 			free_file(&file->inside);
 		free(file);
 		file = tmp;
@@ -43,7 +43,7 @@ void	free_ls(t_ls **ls)
 	i = -1;
 	while (++i <= data->nb_dir)
 		if (data->files[i])
-		free_file(&data->files[i]);
+			free_file(&data->files[i]);
 	free_file(&data->alone_files);
 	free(data->files);
 	free(data);

@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/15 16:04:23 by elebouch          #+#    #+#             */
-/*   Updated: 2018/02/04 10:14:41 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/02/04 13:59:23 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void	display_file(t_file *file, t_ls *data, int i)
 		while (file)
 		{
 			if (ft_strcmp(file->file_name, ".") != 0
-						&& ft_strcmp(file->file_name, "..") != 0 &&
+					&& ft_strcmp(file->file_name, "..") != 0 &&
 					S_ISDIR(file->stat.st_mode) &&
 					!(!(data->opts & FG_A) && file->file_name[0] == '.') )
 			{
@@ -79,30 +79,28 @@ void	display_file(t_file *file, t_ls *data, int i)
 
 void	display(t_ls *data)
 {
-	t_file	*file;
 	int		i;
 
 	i = -1;
 	if (data->nb_dir > 1)
-	{
 		if (!(data->opts & FG_T))
-			data->nb_dir = sortdirarr(&data->files, data->nb_dir - 1, &ascii_sort); 
-		else
-			data->nb_dir = sortdirarr(&data->files, data->nb_dir - 1, &time_sort) ;
-	}
+			data->nb_dir = (!(data->opts & FG_T)) ? sortdirarr(&data->files,
+					data->nb_dir - 1, &ascii_sort) : sortdirarr(&data->files,
+						data->nb_dir - 1, &time_sort);
 	if (data->alone_files)
 		display_file(data->alone_files, data, i);
 	if (data->nb_dir > 1 && data->opts & FG_SR)
 		reverse_arr(&data->files, data->nb_dir);
 	while (++i < data->nb_dir)
 	{
-		file = data->files[i];
-		if (data->nb_dir > 1)
+		if (data->files[i] && data->nb_dir > 1)
 			ft_printf("\n");
-		if (data->nb_dir > 1 && !ft_strcmp(file->dir, "."))
+		if (data->files[i] && data->nb_dir > 1 &&
+				!ft_strcmp(data->files[i]->dir, "."))
 			ft_printf(".:\n");
-		else if (data->nb_dir > 1)
-			printf("%s:\n", file->dir);
-		display_file(file, data, i);
+		else if (data->files[i] && data->nb_dir > 1)
+			printf("%s:\n", data->files[i]->dir);
+		if (data->files[i])
+			display_file(data->files[i], data, i);
 	}
 }
