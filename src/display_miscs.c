@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/29 15:37:22 by elebouch          #+#    #+#             */
-/*   Updated: 2018/02/04 10:18:52 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/02/04 14:10:30 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void	display_file_name(t_file *file, t_ls *data, int i)
 	int color;
 
 	color = (data->opts & FG_BG);
-	if (i == -1 && !(file->path[0] == '.' && file->path[0] == '/'))
+	if (i == -1 && !(file->path[0] == '.' && file->path[1] == '/'))
 		ft_printf("%s%s%s", (color) ? get_color(file) : "",
 				file->path, (color) ? RESET: "");
 	else
