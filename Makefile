@@ -37,29 +37,31 @@ SRC= \
 
 OBJ = $(addprefix $(OBJ_DIR), $(SRC:.c=.o))
 
-all:  $(NAME)
+all:  lib
 
-$(NAME): lib $(OBJ)
+$(NAME):  $(OBJ)
 	@echo  "\033[94mCompiling ft_ls\033[0m"
-	@$(CC) $(CFLAGS) $(OBJ) -o $(NAME) -L libft/ -lftprintf
+	@$(CC) $(CFLAGS) $^ -o $(NAME) -L libft/ -lftprintf
 	@echo  "\033[34mDone\033[0m"
 
 lib:
 	@echo "\033[94mCompiling libft and printf\033[0m"
-	@make -C libft/
+	@$(MAKE) -C libft/
+	@$(MAKE) $(NAME)
 
 obj/%.o: src/%.c
 	@mkdir -p $(OBJ_DIR)
 	@$(CC) $(CFLAGS) -o $@ -c $<
 
 clean:
-	@make clean -C libft/
+	@$(MAKE) clean -C libft/
 	@rm -rf $(OBJ)
 
 fclean: clean
-	@make fclean -C libft/
+	@$(MAKE) fclean -C libft/
 	@rm -rf $(NAME)
 
 re: 
-	@make fclean 
-	@make all
+	@$(MAKE) fclean 
+	@$(MAKE) all
+.PHONY: clean lib fclean re all
