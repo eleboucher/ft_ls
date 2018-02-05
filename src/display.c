@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/15 16:04:23 by elebouch          #+#    #+#             */
-/*   Updated: 2018/02/05 10:39:02 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/02/05 11:38:24 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,10 +83,9 @@ void	display(t_ls *data)
 
 	i = -1;
 	if (data->nb_dir > 1)
-		if (!(data->opts & FG_T))
-			data->nb_dir = (!(data->opts & FG_T)) ? sortdirarr(&data->files,
-					data->nb_dir - 1, &ascii_sort) : sortdirarr(&data->files,
-						data->nb_dir - 1, &time_sort);
+		data->nb_dir = (!(data->opts & FG_T)) ? sortdirarr(&data->files,
+				data->nb_dir - 1, &ascii_sort) : sortdirarr(&data->files,
+					data->nb_dir - 1, &time_sort);
 	if (data->alone_files)
 		display_file(data->alone_files, data, i);
 	if (data->nb_dir > 1 && data->opts & FG_SR)

@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/30 07:15:49 by elebouch          #+#    #+#             */
-/*   Updated: 2018/02/05 10:49:49 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/02/05 11:41:05 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ int				sortdirarr(t_file ***arr, int n, int (*f)(t_file *a, t_file *b))
 		j = i - 1;
 		while (j >= 0 && (*f)(get_folder(files[j]), key) > 0)
 		{
+			printf("on trie\n");
 			files[j + 1] = files[j];
 			j = j - 1;
 		}
