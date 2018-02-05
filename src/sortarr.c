@@ -61,7 +61,6 @@ int				sortdirarr(t_file ***arr, int n, int (*f)(t_file *a, t_file *b))
 		j = i - 1;
 		while (j >= 0 && (*f)(get_folder(files[j]), key) > 0)
 		{
-			printf("on trie\n");
 			files[j + 1] = files[j];
 			j = j - 1;
 		}
