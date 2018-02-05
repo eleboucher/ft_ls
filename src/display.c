@@ -67,7 +67,7 @@ void	display_file(t_file *file, t_ls *data, int i)
 					!(!(data->opts & FG_A) && file->file_name[0] == '.'))
 			{
 				file->inside = ft_getls(file->path, data);
-				if (file->inside && !file->inside->error)
+				if (file->inside)
 				{
 					ft_printf("\n%s:\n", file->path);
 					display_file(file->inside, data, i);
@@ -95,7 +95,7 @@ void	display(t_ls *data)
 		if (data->files[i] && data->nb_dir > 1 && (i > 0 || data->alone_files))
 			ft_printf("\n");
 		if (data->files[i] && data->nb_dir > 1 &&
-				!ft_strcmp(data->files[i]->dir, "."))
+				(!ft_strcmp(data->files[i]->dir, ".") || data->files[i]->error))
 			ft_printf(".:\n");
 		else if (data->files[i] && data->nb_dir > 1)
 			ft_printf("%s:\n", data->files[i]->dir);
