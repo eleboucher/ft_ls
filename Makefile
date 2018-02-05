@@ -6,7 +6,7 @@
 #    By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/01/23 12:59:48 by elebouch          #+#    #+#              #
-#    Updated: 2018/02/04 15:36:21 by elebouch         ###   ########.fr        #
+#    Updated: 2018/02/05 09:42:52 by elebouch         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,6 +32,7 @@ SRC= \
 	putpad.c \
 	reverse.c \
 	sortarr.c \
+	freearr.c \
 	error.c
 
 OBJ = $(addprefix $(OBJ_DIR), $(SRC:.c=.o))

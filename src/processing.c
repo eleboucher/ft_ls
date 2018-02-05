@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/13 15:02:51 by elebouch          #+#    #+#             */
-/*   Updated: 2018/02/04 14:40:17 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/02/05 09:48:49 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ char	*joindir(char *dir, char *newdir)
 	return (dir);
 }
 
-t_file		*ft_getls(char *dir, t_ls *data)
+t_file	*ft_getls(char *dir, t_ls *data)
 {
 	DIR				*rep;
 	struct dirent	*readfile;

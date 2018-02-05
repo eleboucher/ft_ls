@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/25 15:39:07 by elebouch          #+#    #+#             */
-/*   Updated: 2018/02/04 13:58:08 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/02/05 09:45:40 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,18 +29,6 @@ static t_file	*perm(char *dir, char *file_name)
 	free(str);
 	free(file_name);
 	return (file);
-}
-
-static void		freearr(char ***arr)
-{
-	char	**file_name;
-	int		i;
-
-	file_name = *arr;
-	i = -1;
-	while (file_name[++i])
-		free(file_name[i]);
-	free(file_name);
 }
 
 static void		enoent(char *f)
@@ -73,11 +61,20 @@ static char		*get_dir(char **split, char *dir, int size)
 	}
 	return (d);
 }
+
+static t_file	*enotdir(t_ls *data, char *f, char *d, int i)
+{
+	(i == 1) ? mergefile(&data->alone_files, get_info(".", f)) :
+		mergefile(&data->alone_files, get_info(d, f));
+	free(d);
+	return (NULL);
+}
+
 t_file			*process_error(char *dir, int error, t_ls *data)
 {
 	char	**file_name;
 	char	*f;
-	char 	*d;
+	char	*d;
 	int		i;
 
 	file_name = (dir && *dir) ? ft_strsplit(dir, '/') :
@@ -89,20 +86,13 @@ t_file			*process_error(char *dir, int error, t_ls *data)
 	d = get_dir(file_name, dir, i);
 	freearr(&file_name);
 	if (error == ENOTDIR)
-	{
-		if (i == 1)
-			mergefile(&data->alone_files, get_info(".", f));
-		else
-			mergefile(&data->alone_files, get_info(d, f));
-		free(d);
-		return (NULL);
-	}
-	if (error == EACCES)
+		return (enotdir(data, f, d, i));
+	else if (error == EACCES)
 	{
 		free(d);
 		return (perm(dir, f));
 	}
-	if (error == ENOENT)
+	else if (error == ENOENT)
 		enoent(f);
 	free(d);
 	free(f);

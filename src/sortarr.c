@@ -6,21 +6,20 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/30 07:15:49 by elebouch          #+#    #+#             */
-/*   Updated: 2018/02/04 14:51:55 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/02/05 09:50:27 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-
 static t_file	*get_folder(t_file *file)
 {
-	while (file && !file->error &&ft_strcmp(file->file_name, "."))
+	while (file && !file->error && ft_strcmp(file->file_name, "."))
 		file = file->next;
 	return (file);
 }
 
-static int	pushnullatend(t_file ***arr, int n)
+static int		pushnullatend(t_file ***arr, int n)
 {
 	int		i;
 	int		count;
@@ -42,11 +41,11 @@ static int	pushnullatend(t_file ***arr, int n)
 	return (nbdir);
 }
 
-int	 sortdirarr(t_file ***arr, int n, int (*f)(t_file *a, t_file *b))
+int				sortdirarr(t_file ***arr, int n, int (*f)(t_file *a, t_file *b))
 {
-	t_file **files;
+	t_file	**files;
 	int		i;
-	t_file 	*key;
+	t_file	*key;
 	t_file	*cpy;
 	int		j;
 
@@ -70,7 +69,7 @@ int	 sortdirarr(t_file ***arr, int n, int (*f)(t_file *a, t_file *b))
 	return (n);
 }
 
-void	reverse_arr(t_file ***arr, int size)
+void			reverse_arr(t_file ***arr, int size)
 {
 	int		i;
 	int		j;

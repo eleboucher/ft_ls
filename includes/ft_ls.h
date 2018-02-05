@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/12 17:17:34 by elebouch          #+#    #+#             */
-/*   Updated: 2018/02/04 14:39:22 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/02/05 09:51:23 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ typedef struct		s_file
 typedef struct		s_ls
 {
 	int				opts;
+	int				flags;
 	int				error;
 	int				nb_dir;
 	char			**dir;
@@ -90,13 +91,13 @@ void				display(t_ls *data);
 int					process(t_ls *data);
 t_file				*get_info(char *dir, char *d_name);
 char				*joindir(char *dir, char *newdir);
-t_file          	*ft_getls(char *dir, t_ls *data);
+t_file				*ft_getls(char *dir, t_ls *data);
 void				ft_mergesort(t_file **file, t_ls *data);
 void				split(t_file *src, t_file **front, t_file **back);
 t_file				*sorted(t_file *a, t_file *b,
 		int (*f)(t_file *a, t_file *b));
 void				free_ls(t_ls **ls);
-t_file          	*process_error(char *dir, int error, t_ls *data);
+t_file				*process_error(char *dir, int error, t_ls *data);
 void				print_type(t_file *file, int fg_pls);
 void				print_right(t_file *file, int fg_pls);
 void				print_total(t_file *file, int fg_a);
@@ -119,7 +120,7 @@ int					ft_getoption(char c);
 int					ft_getargs(int argc, char **argv, t_ls *data);
 void				ft_initializels(t_ls *data);
 void				display_small(t_file *file, t_ls *data, int i);
-void				display_long(t_file *file, t_ls *data, int);
+void				display_long(t_file *file, t_ls *data, int i);
 void				display_file(t_file *file, t_ls *data, int i);
 void				print_acl(t_file *file);
 char				*get_color(t_file *file);
@@ -128,4 +129,5 @@ int					mergefile(t_file **list, t_file *merge);
 int					ascii_sort(t_file *a, t_file *b);
 int					time_sort(t_file *a, t_file *b);
 void				reverse_arr(t_file ***arr, int size);
+void				freearr(char ***arr);
 #endif

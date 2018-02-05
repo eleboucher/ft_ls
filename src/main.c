@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/12 17:15:29 by elebouch          #+#    #+#             */
-/*   Updated: 2018/02/04 10:07:01 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/02/05 09:49:51 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,6 @@ int		ft_getoption(char c)
 int		ft_getargs(int argc, char **argv, t_ls *data)
 {
 	int i;
-	int flags;
 	int j;
 
 	i = 0;
@@ -69,17 +68,15 @@ int		ft_getargs(int argc, char **argv, t_ls *data)
 			}
 			while (argv[i][++j])
 			{
-				if (!(flags = ft_getoption(argv[i][j])))
-					return ((int)(data->error = argv[i][j]) );
-				data->opts |= flags;
+				if (!(data->flags = ft_getoption(argv[i][j])))
+					return ((int)(data->error = argv[i][j]));
+				data->opts |= data->flags;
 			}
 		}
 		else
 			break ;
 	}
-	if (!(ft_getdir(argc, argv, i, data)))
-		return (0);
-	return (1);
+	return (!(ft_getdir(argc, argv, i, data)) ? 0 : 1);
 }
 
 void	ft_initializels(t_ls *data)
@@ -89,6 +86,7 @@ void	ft_initializels(t_ls *data)
 	data->dir = NULL;
 	data->files = NULL;
 	data->alone_files = NULL;
+	data->flags = 0;
 	data->nb_dir = 0;
 }
 
@@ -107,7 +105,7 @@ int		main(int argc, char **argv)
 	}
 	if (data->error)
 	{
-		write(2 , "ft_ls: illegal option -- ", 25);
+		write(2, "ft_ls: illegal option -- ", 25);
 		ft_putchar_fd(data->error, 2);
 		ft_putchar_fd('\n', 2);
 		write(2, "usage: ft_ls [-", 15);

@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/15 16:04:23 by elebouch          #+#    #+#             */
-/*   Updated: 2018/02/04 14:21:07 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/02/05 09:46:11 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void	display_file(t_file *file, t_ls *data, int i)
 			if (ft_strcmp(file->file_name, ".") != 0
 					&& ft_strcmp(file->file_name, "..") != 0 &&
 					S_ISDIR(file->stat.st_mode) &&
-					!(!(data->opts & FG_A) && file->file_name[0] == '.') )
+					!(!(data->opts & FG_A) && file->file_name[0] == '.'))
 			{
 				file->inside = ft_getls(file->path, data);
 				if (file->inside && !file->inside->error)
