@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/15 16:04:23 by elebouch          #+#    #+#             */
-/*   Updated: 2018/02/05 09:46:11 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/02/05 10:39:02 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	display_long(t_file *file, t_ls *data, int i)
 {
 	t_size size;
 
-	if (S_ISDIR(file->stat.st_mode))
+	if (get_folder(file) && S_ISDIR(get_folder(file)->stat.st_mode))
 		print_total(file, data->opts & FG_A);
 	init_size(&size);
 	maxsize_guid(file, &size, data->opts & FG_A);

@@ -6,13 +6,13 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/30 07:15:49 by elebouch          #+#    #+#             */
-/*   Updated: 2018/02/05 09:50:27 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/02/05 10:49:49 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-static t_file	*get_folder(t_file *file)
+t_file			*get_folder(t_file *file)
 {
 	while (file && !file->error && ft_strcmp(file->file_name, "."))
 		file = file->next;
